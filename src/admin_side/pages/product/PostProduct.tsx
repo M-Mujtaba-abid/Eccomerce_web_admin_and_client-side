@@ -1,0 +1,295 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  createProduct,
+  updateProduct,
+} from "../../../redux/Admin/AdminThunk/ProductThunk";
+import { clearError } from "../../../redux/Admin/AdminSlice/ProductSlice";
+import type { RootState, AppDispatch } from "../../../redux/store";
+import type { ProductData } from "../../../redux/Admin/typesAdminComponent/productTypes";
+
+const PostProduct = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { productId } = useParams<{ productId: string }>();
+
+  const { loading, error, currentProduct } = useSelector(
+    (state: RootState) => state.products
+  ) as any;
+
+  const isEditMode = !!productId;
+
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    status: "available" as "available" | "not available",
+    price: "",
+    stock: "",
+    category: "perfume" as "perfume" | "accesories",
+    productImage: null as File | null,
+  });
+
+  const [imagePreview, setImagePreview] = useState<string>("");
+
+  // ✅ Fetch product by ID in edit mode
+  useEffect(() => {
+    if (isEditMode && productId) {
+      dispatch(updateProduct({ id: parseInt(productId) }));
+    }
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch, productId, isEditMode]);
+
+  // ✅ Prefill form when currentProduct updates
+  useEffect(() => {
+    if (isEditMode && currentProduct) {
+      setFormData({
+        title: currentProduct.title,
+        description: currentProduct.description,
+        status: currentProduct.status,
+        price: currentProduct.price.toString(),
+        stock: currentProduct.stock.toString(),
+        category: currentProduct.category,
+        productImage: null,
+      });
+      setImagePreview(currentProduct.productImage);
+    }
+  }, [currentProduct, isEditMode]);
+
+  // ✅ Input change handler
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // ✅ File change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, productImage: file }));
+      const reader = new FileReader();
+      reader.onload = () => setImagePreview(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // ✅ Submit handler
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (isEditMode) {
+      if (!productId) return;
+
+      const updateData: any = {
+        id: productId,
+        title: formData.title,
+        description: formData.description,
+        status: formData.status,
+        price: parseFloat(formData.price),
+        stock: parseInt(formData.stock),
+        category: formData.category,
+      };
+      if (formData.productImage) updateData.productImage = formData.productImage;
+
+      try {
+        await dispatch(updateProduct(updateData)).unwrap();
+        navigate("/products");
+      } catch (error) {
+        console.error("Update failed:", error);
+      }
+    } else {
+      if (!formData.productImage) {
+        alert("Please select an image");
+        return;
+      }
+
+      const productData: ProductData = {
+        title: formData.title,
+        description: formData.description,
+        status: formData.status,
+        price: parseFloat(formData.price),
+        stock: parseInt(formData.stock),
+        category: formData.category,
+        productImage: formData.productImage,
+      };
+
+      try {
+        await dispatch(createProduct(productData)).unwrap();
+        setFormData({
+          title: "",
+          description: "",
+          status: "available",
+          price: "",
+          stock: "",
+          category: "perfume",
+          productImage: null,
+        });
+        setImagePreview("");
+      } catch (error) {
+        console.error("Create failed:", error);
+      }
+    }
+  };
+
+  // ✅ Common Input Class
+  const inputClass =
+    "w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent " +
+    "bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700";
+
+  const labelClass =
+    "block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300";
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+            {isEditMode ? "Edit Product" : "Create New Product"}
+          </h1>
+          {isEditMode && (
+            <button
+              onClick={() => navigate("/products")}
+              className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
+            >
+              Back
+            </button>
+          )}
+        </div>
+
+        {error && (
+          <div className="mb-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 text-red-700 dark:text-red-200 rounded">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Title */}
+          <div>
+            <label className={labelClass}>Product Title *</label>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              required
+              className={inputClass}
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className={labelClass}>Description *</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+              rows={4}
+              className={inputClass}
+            />
+          </div>
+
+          {/* Status & Category */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Status *</label>
+              <select
+                name="status"
+                value={formData.status}
+                onChange={handleInputChange}
+                className={inputClass}
+              >
+                <option value="available">Available</option>
+                <option value="not available">Not Available</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Category *</label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                className={inputClass}
+              >
+                <option value="perfume">Perfume</option>
+                <option value="accesories">Accessories</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Price & Stock */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Price *</label>
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                required
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Stock *</label>
+              <input
+                type="number"
+                name="stock"
+                value={formData.stock}
+                onChange={handleInputChange}
+                required
+                className={inputClass}
+              />
+            </div>
+          </div>
+
+          {/* Image */}
+          <div>
+            <label className={labelClass}>
+              Product Image {isEditMode ? "(optional)" : "*"}
+            </label>
+            <input
+              type="file"
+              onChange={handleFileChange}
+              accept="image/*"
+              className={inputClass}
+            />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="mt-2 w-32 h-32 object-cover rounded-md border dark:border-gray-600"
+              />
+            )}
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
+          >
+            {loading
+              ? isEditMode
+                ? "Updating..."
+                : "Creating..."
+              : isEditMode
+              ? "Update Product"
+              : "Create Product"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default PostProduct;
