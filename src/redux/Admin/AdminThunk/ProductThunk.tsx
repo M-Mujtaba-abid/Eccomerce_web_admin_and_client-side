@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../apiInstance';
-import type { Product, ProductData } from '../typesAdminComponent/productTypes';
+import type {  ProductData } from '../typesAdminComponent/productTypes';
 
 // Create product thunk
 export const createProduct = createAsyncThunk(
@@ -14,6 +14,7 @@ export const createProduct = createAsyncThunk(
       formData.append('price', productData.price.toString());
       formData.append('stock', productData.stock.toString());
       formData.append('category', productData.category);
+      formData.append('Quantity', productData.Quantity);
       formData.append('productImage', productData.productImage);
 
       const response = await API.post('/product/postproduct', formData, {
@@ -42,7 +43,7 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-// Get product by ID thunk
+// Get product by ID thunk for detail page
 export const getProductById = createAsyncThunk(
   'products/getProductById',
   async (productId: number, { rejectWithValue }) => {
@@ -116,3 +117,20 @@ export const deleteProduct = createAsyncThunk(
     }
   }
 );
+
+// Get total number of products thunk
+export const getTotalProductsCount = createAsyncThunk(
+  'products/getTotalProductsCount',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await API.get('/product/getNumberOfTotalproduct');
+      return response.data.data.totalProducts;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch total products count');
+    }
+  }
+);
+
+
+
+

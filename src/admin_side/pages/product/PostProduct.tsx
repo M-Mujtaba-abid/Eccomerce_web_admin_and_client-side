@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   createProduct,
   updateProduct,
+  getProductById,
 } from "../../../redux/Admin/AdminThunk/ProductThunk";
 import { clearError } from "../../../redux/Admin/AdminSlice/ProductSlice";
 import type { RootState, AppDispatch } from "../../../redux/store";
@@ -26,7 +27,8 @@ const PostProduct = () => {
     status: "available" as "available" | "not available",
     price: "",
     stock: "",
-    category: "perfume" as "perfume" | "accesories",
+    category: "Men" as "Men" | "Women" | "Children",
+    Quantity: "15ML" as "15ML" | "50ML" | "100ML",
     productImage: null as File | null,
   });
 
@@ -35,7 +37,7 @@ const PostProduct = () => {
   // ✅ Fetch product by ID in edit mode
   useEffect(() => {
     if (isEditMode && productId) {
-      dispatch(updateProduct({ id: parseInt(productId) }));
+      dispatch(getProductById(parseInt(productId)));
     }
     return () => {
       dispatch(clearError());
@@ -52,6 +54,7 @@ const PostProduct = () => {
         price: currentProduct.price.toString(),
         stock: currentProduct.stock.toString(),
         category: currentProduct.category,
+        Quantity: currentProduct.Quantity,
         productImage: null,
       });
       setImagePreview(currentProduct.productImage);
@@ -97,12 +100,13 @@ const PostProduct = () => {
         price: parseFloat(formData.price),
         stock: parseInt(formData.stock),
         category: formData.category,
+        Quantity: formData.Quantity,
       };
       if (formData.productImage) updateData.productImage = formData.productImage;
 
       try {
         await dispatch(updateProduct(updateData)).unwrap();
-        navigate("/products");
+        navigate("/admin/products");
       } catch (error) {
         console.error("Update failed:", error);
       }
@@ -119,6 +123,7 @@ const PostProduct = () => {
         price: parseFloat(formData.price),
         stock: parseInt(formData.stock),
         category: formData.category,
+        Quantity: formData.Quantity,
         productImage: formData.productImage,
       };
 
@@ -130,7 +135,8 @@ const PostProduct = () => {
           status: "available",
           price: "",
           stock: "",
-          category: "perfume",
+          category: "Men",
+          Quantity: "15ML",
           productImage: null,
         });
         setImagePreview("");
@@ -157,7 +163,7 @@ const PostProduct = () => {
           </h1>
           {isEditMode && (
             <button
-              onClick={() => navigate("/products")}
+              onClick={() => navigate("/admin/products")}
               className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
             >
               Back
@@ -177,6 +183,7 @@ const PostProduct = () => {
             <label className={labelClass}>Product Title *</label>
             <input
               type="text"
+              placeholder="Enter Product Title"
               name="title"
               value={formData.title}
               onChange={handleInputChange}
@@ -190,6 +197,7 @@ const PostProduct = () => {
             <label className={labelClass}>Description *</label>
             <textarea
               name="description"
+              placeholder="Enter Product Description"
               value={formData.description}
               onChange={handleInputChange}
               required
@@ -220,10 +228,27 @@ const PostProduct = () => {
                 onChange={handleInputChange}
                 className={inputClass}
               >
-                <option value="perfume">Perfume</option>
-                <option value="accesories">Accessories</option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="Children">Children</option>
+                
               </select>
             </div>
+          </div>
+
+          {/* Quantity */}
+          <div>
+            <label className={labelClass}>Quantity *</label>
+            <select
+              name="Quantity"
+              value={formData.Quantity}
+              onChange={handleInputChange}
+              className={inputClass}
+            >
+              <option value="15ML">15ML</option>
+              <option value="50ML">50ML</option>
+              <option value="100ML">100ML</option>
+            </select>
           </div>
 
           {/* Price & Stock */}
@@ -233,6 +258,7 @@ const PostProduct = () => {
               <input
                 type="number"
                 name="price"
+                placeholder="Enter Product Price"
                 value={formData.price}
                 onChange={handleInputChange}
                 required
@@ -244,6 +270,7 @@ const PostProduct = () => {
               <input
                 type="number"
                 name="stock"
+                placeholder="Enter Product Stock"
                 value={formData.stock}
                 onChange={handleInputChange}
                 required

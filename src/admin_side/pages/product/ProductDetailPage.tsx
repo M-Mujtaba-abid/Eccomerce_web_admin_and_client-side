@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getProductById, deleteProduct } from '../../../redux/Admin/AdminThunk/ProductThunk';
-import { clearError, clearCurrentProduct } from '../../../redux/Admin/AdminSlice/ProductSlice';
-import type { RootState, AppDispatch } from '../../../redux/store';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { getProductById, deleteProduct } from "../../../redux/Admin/AdminThunk/ProductThunk";
+import { clearError, clearCurrentProduct } from "../../../redux/Admin/AdminSlice/ProductSlice";
+import type { RootState, AppDispatch } from "../../../redux/store";
 
-const ProductDetailPage: React.FC = () => {
+const ProductDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { productId } = useParams<{ productId: string }>();
-  const { loading, error, currentProduct } = useSelector((state: RootState) => state.products) as any;
+  const { loading, error, currentProduct } = useSelector(
+    (state: RootState) => state.products
+  ) as any;
+
+  console.log('ProductDetailPage rendering with productId:', productId);
+  console.log('Current product state:', { loading, error, currentProduct });
 
   useEffect(() => {
     if (productId) {
+      console.log('Fetching product with ID:', productId);
       dispatch(getProductById(parseInt(productId)));
     }
 
@@ -24,56 +30,62 @@ const ProductDetailPage: React.FC = () => {
 
   const handleDelete = async () => {
     if (!currentProduct) return;
-    
-    if (window.confirm('Are you sure you want to delete this product?')) {
+
+    if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         await dispatch(deleteProduct(currentProduct.id)).unwrap();
-        navigate('/products');
+        navigate("/products");
       } catch (error) {
-        console.error('Failed to delete product:', error);
+        console.error("Failed to delete product:", error);
       }
     }
   };
 
   const handleEdit = () => {
     if (!currentProduct) return;
-    navigate(`/product/${currentProduct.id}`);
+    navigate(`/admin/product/${currentProduct.id}`);
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl font-semibold text-gray-600">Loading product details...</div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">
+          Loading product details...
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl font-semibold text-red-600">Error: {error}</div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="text-xl font-semibold text-red-600">{error}</div>
       </div>
     );
   }
 
   if (!currentProduct) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl font-semibold text-gray-600">Product not found</div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">
+          Product not found
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen py-8 bg-gray-100 dark:bg-gray-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
           {/* Header */}
-          <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700">
             <div className="flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-800">Product Details</h1>
+              <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+                Product Details
+              </h1>
               <button
-                onClick={() => navigate('/products')}
+                onClick={() => navigate("/admin/products")}
                 className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
               >
                 Back to Products
@@ -98,56 +110,78 @@ const ProductDetailPage: React.FC = () => {
               {/* Product Information */}
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
                     {currentProduct.title}
                   </h2>
-                  <p className="text-gray-600 text-lg leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
                     {currentProduct.description}
                   </p>
                 </div>
 
                 <div className="space-y-4">
                   {/* Price */}
-                  <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                    <span className="text-lg font-semibold text-gray-700">Price:</span>
-                    <span className="text-2xl font-bold text-blue-600">
+                  <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-900/40 rounded-lg">
+                    <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Price:
+                    </span>
+                    <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                       Rs. {currentProduct.price}
                     </span>
                   </div>
 
                   {/* Status */}
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <span className="text-lg font-semibold text-gray-700">Status:</span>
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      currentProduct.status === 'available'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}>
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Status:
+                    </span>
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        currentProduct.status === "available"
+                          ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                          : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                      }`}
+                    >
                       {currentProduct.status}
                     </span>
                   </div>
 
                   {/* Stock */}
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <span className="text-lg font-semibold text-gray-700">Stock:</span>
-                    <span className="text-lg font-medium text-gray-800">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Stock:
+                    </span>
+                    <span className="text-lg font-medium text-gray-800 dark:text-gray-100">
                       {currentProduct.stock} units
                     </span>
                   </div>
 
                   {/* Category */}
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <span className="text-lg font-semibold text-gray-700">Category:</span>
-                    <span className="text-lg font-medium text-gray-800 capitalize">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Category:
+                    </span>
+                    <span className="text-lg font-medium text-gray-800 dark:text-gray-100 capitalize">
                       {currentProduct.category}
+                    </span>
+                  </div>
+
+                  {/* Quantity */}
+                  <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Quantity:
+                    </span>
+                    <span className="text-lg font-medium text-gray-800 dark:text-gray-100">
+                      {currentProduct.Quantity}
                     </span>
                   </div>
 
                   {/* Created Date */}
                   {currentProduct.createdAt && (
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                      <span className="text-lg font-semibold text-gray-700">Created:</span>
-                      <span className="text-lg font-medium text-gray-800">
+                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                        Created:
+                      </span>
+                      <span className="text-lg font-medium text-gray-800 dark:text-gray-100">
                         {new Date(currentProduct.createdAt).toLocaleDateString()}
                       </span>
                     </div>

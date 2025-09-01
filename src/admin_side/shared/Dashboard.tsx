@@ -1,17 +1,42 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../redux/store';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getTotalProductsCount } from '../../redux/Admin/AdminThunk/ProductThunk';
+// import { logout } from '../../redux/auth/AuthSlice';
+import type { RootState, AppDispatch } from '../../redux/store';
+import Logout from '../../auth/Logout';
 
 const Dashboard = () => {
-  const { products } = useSelector((state: RootState) => state.products);
+  const dispatch = useDispatch<AppDispatch>();
+  // const navigate = useNavigate();
+  const { totalProductsCount, loading } = useSelector((state: RootState) => state.products) as any;
+
+  useEffect(() => {
+    // Fetch total products count when dashboard loads
+    dispatch(getTotalProductsCount());
+  }, [dispatch]);
+
+  // const handleLogout = () => {
+  //   dispatch(logout());
+  //   navigate('/login');
+  // };
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Dashboard</h1>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Welcome to your admin dashboard
-        </p>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 ml-10 md:ml-0 dark:text-white">Dashboard</h1>
+          <p className="text-sm text-gray-600   dark:text-gray-400">
+            Welcome to dashboard
+          </p>
+        </div>
+        {/* <button
+          onClick={handleLogout}
+         
+        >
+          Logout
+        </button> */}
+        <Logout/>
       </div>
 
       {/* Stats Cards */}
@@ -39,7 +64,9 @@ const Dashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Products</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">{products.length}</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                {loading ? '...' : totalProductsCount}
+              </p>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -8,7 +8,7 @@ import {
 import { clearError } from "../../../redux/Admin/AdminSlice/ProductSlice";
 import type { RootState, AppDispatch } from "../../../redux/store";
 
-const ListProduct: React.FC = () => {
+const ListProduct = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { products, loading, error } = useSelector(
@@ -17,7 +17,6 @@ const ListProduct: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-
     return () => {
       dispatch(clearError());
     };
@@ -25,10 +24,13 @@ const ListProduct: React.FC = () => {
 
   const handleDetailView = async (productId: number) => {
     try {
-      // First dispatch getProductById to fetch the product data
+      console.log("Detail View clicked for product ID:", productId);
       await dispatch(getProductById(productId)).unwrap();
-      // Then navigate to the detail page
-      navigate(`/product-detail/${productId}`);
+      console.log(
+        "Product fetched successfully, navigating to:",
+        `/admin/product-detail/${productId}`
+      );
+      navigate(`/admin/product-detail/${productId}`); // ✅ Fixed: Added /admin prefix and correct path
     } catch (error) {
       console.error("Failed to fetch product details:", error);
     }
@@ -36,8 +38,8 @@ const ListProduct: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl font-semibold text-gray-600">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">
           Loading products...
         </div>
       </div>
@@ -45,25 +47,25 @@ const ListProduct: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
             Product List ({products.length} products)
           </h1>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 rounded">
               {error}
             </div>
           )}
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {products.map((product: any) => (
               <div
                 key={product.id}
-                className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-t-lg">
                   <img
@@ -73,39 +75,54 @@ const ListProduct: React.FC = () => {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2 truncate">
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2 truncate">
                     {product.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                    {product.description}
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-2">
+                    {product.description.slice(0, 20)}...
                   </p>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-lg font-bold text-blue-600">
+                    <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
                       Rs.{product.price}
                     </span>
                     <span
                       className={`px-2 py-1 text-xs rounded-full ${
                         product.status === "available"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-red-100 text-red-800"
+                          ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
+                          : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200"
                       }`}
                     >
                       {product.status}
                     </span>
                   </div>
                   <div className="flex justify-between items-center mb-3">
-                    <span className="text-sm text-gray-500">
-                      Stock: {product.stock}
-                    </span>
-                    <br />
-                    <span className="text-sm text-gray-500 capitalize">
-                      Category: {product.category}
-                    </span>
-                  </div>
+  <span className="text-sm text-black dark:text-white font-bold">
+    Stock:{" "}
+    <span className="text-gray-500 dark:text-gray-400 font-normal">
+      {product.stock}
+    </span>
+  </span>
+
+  <span className="text-sm text-black dark:text-white font-bold capitalize">
+    Category:{" "}
+    <span className="text-gray-500 dark:text-gray-400 font-normal">
+      {product.category}
+    </span>
+  </span>
+
+  <span className="text-sm text-black dark:text-white font-bold capitalize">
+    Quantity:{" "}
+    <span className="text-gray-500 dark:text-gray-400 font-normal">
+      {product.Quantity}
+    </span>
+  </span>
+</div>
+
+
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleDetailView(product.id)}
-                      className="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       Detail View
                     </button>
@@ -117,7 +134,9 @@ const ListProduct: React.FC = () => {
 
           {products.length === 0 && !loading && (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">No products found.</p>
+              <p className="text-gray-500 dark:text-gray-400 text-lg">
+                No products found.
+              </p>
             </div>
           )}
         </div>

@@ -1,66 +1,91 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import ThemeToggle from "../../ThemeToggle";
 
 const Sidebar = () => {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="flex-1">
-      <ul className="space-y-2">
-        <li>
-          <Link
-            to="/"
-            className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
-              isActive('/') 
-                ? 'bg-blue-600 text-white' 
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z" />
-            </svg>
-            Dashboard
-          </Link>
-        </li>
-        
-        <li>
-          <Link
-            to="/product"
-            className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
-              isActive('/product') 
-                ? 'bg-blue-600 text-white' 
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-            </svg>
-            Add Product
-          </Link>
-        </li>
+    <>
+      {/* Mobile toggle button */}
+      <button
+        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-gray-800 text-white"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
 
-        <li>
-          <Link
-            to="/products"
-            className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
-              isActive('/products') 
-                ? 'bg-blue-600 text-white' 
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
-            All Products
-          </Link>
-        </li>
-      </ul>
-    </nav>
+      {/* Sidebar */}
+      <aside
+        className={`fixed top-0 left-0 h-full w-64 bg-gray-800 dark:bg-gray-900 text-white transform transition-transform duration-300 ease-in-out z-40
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between h-16 px-4 bg-gray-700 dark:bg-gray-800">
+          <h2 className="font-bold text-lg">Admin Panel</h2>
+          <ThemeToggle />
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 mt-6">
+          <ul className="space-y-2">
+            <li>
+              <Link
+                to="/admin"
+                className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                  isActive("/admin")
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                Dashboard
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/admin/product"
+                className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                  isActive("/admin/product")
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                Add Product
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/admin/products"
+                className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                  isActive("/admin/products")
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                All Products
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      {/* Overlay (mobile only) */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black opacity-50 z-30 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+    </>
   );
 };
 

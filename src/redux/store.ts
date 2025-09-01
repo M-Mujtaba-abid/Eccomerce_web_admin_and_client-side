@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productReducer from "./Admin/AdminSlice/ProductSlice"; // tumhara slice path
+import userReducer from "./auth/AuthSlice"; // tumhara slice path
 
 export const store = configureStore({
   reducer: {
     products: productReducer,
+    user: userReducer,
     // agar future me aur slices add karne ho to yahi add kar sakte ho
   },
 });

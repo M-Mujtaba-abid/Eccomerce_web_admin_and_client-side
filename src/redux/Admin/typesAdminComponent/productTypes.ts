@@ -7,7 +7,8 @@ export interface Product {
   price: number;
   stock: number;
   productImage: string;
-  category: 'perfume' | 'accesories';
+  category: 'Men' | 'Women' | 'Children';
+  Quantity: '15ML' | '50ML' | '100ML';
   createdAt?: string;
   updatedAt?: string;
 }
@@ -16,6 +17,7 @@ export interface Product {
 export interface ProductState {
   products: Product[];
   currentProduct: Product | null;
+  totalProductsCount: number;
   loading: boolean;
   error: string | null;
 }
@@ -27,6 +29,7 @@ export interface ProductData {
   status: 'available' | 'not available';
   price: number;
   stock: number;
-  category: 'perfume' | 'accesories';
+  category: 'Men' | 'Women' | 'Children';
+  Quantity: '15ML' | '50ML' | '100ML';
   productImage: File;
 }
