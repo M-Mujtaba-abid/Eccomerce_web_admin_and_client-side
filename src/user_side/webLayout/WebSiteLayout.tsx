@@ -5,6 +5,7 @@ import Carousel from "../component/Carosel"
 import Navbar from "../component/Navbar"
 import Footer from "../component/Footer"
 import CartModal from "../pages/cart/CArtModel"
+// import GlobalLoader from "../component/GlobalLoader"
 
 const WebSiteLayout = () => {
   const location = useLocation();
@@ -25,6 +26,8 @@ const WebSiteLayout = () => {
       
       <Footer/>
       
+      {/* Global Loader */}
+      {/* <GlobalLoader /> */}
       {/* Cart Modal - Global */}
       <CartModal />
     </div>

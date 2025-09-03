@@ -1,50 +1,117 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
-import API from "../apiInstance";
+// import { createAsyncThunk } from "@reduxjs/toolkit";
+// // import axios from "axios";
+// import API from "../apiInstance";
 
+// export const registerUser = createAsyncThunk(
+//   "user/register",
+//   async (userData: any, { rejectWithValue }) => {
+//     try {
+//         const response = await API.post('/user/register', userData, {
+            
+//           });
+    
+//       return response.data;
+//     } catch (error: any) {
+//       return rejectWithValue(error.response?.data?.message || "Registration failed");
+//     }
+//   }
+// );
+
+
+// // ✅ Login Thunk
+// export const loginUser = createAsyncThunk(
+//     "user/login",
+//     async (loginData: { email: string; password: string; userRole: string }, { rejectWithValue }) => {
+//       try {
+//         const response = await API.post("/user/login", loginData);
+//         // Token localStorage me save (redundant safety; slice will also persist)
+//         if (response.data?.token) {
+//           localStorage.setItem("token", response.data.token);
+//         }
+//         return response.data;
+//       } catch (error: any) {
+//         return rejectWithValue(error.response?.data?.message || "Login failed");
+//       }
+//     }
+//   );
+// // 🔹 Logout Thunk
+// export const logoutUser = createAsyncThunk(
+//   "user/logout",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await API.post("/user/logout"); // 👈 tumhara backend route
+//       localStorage.removeItem("token");
+//       localStorage.removeItem("user");
+//       return response.data;
+//     } catch (error: any) {
+//       return rejectWithValue(error.response?.data?.message || "Logout failed");
+//     }
+//   }
+// );
+
+
+
+
+
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import API from "../apiInstance";
+import { showLoader, hideLoader } from "../LoaderSlice";
+
+// 🔹 Register User
 export const registerUser = createAsyncThunk(
   "user/register",
-  async (userData: any, { rejectWithValue }) => {
+  async (userData: any, { dispatch, rejectWithValue }) => {
     try {
-        const response = await API.post('/user/register', userData, {
-            
-          });
-    
+      dispatch(showLoader()); // Loader ON
+      const response = await API.post("/user/register", userData);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || "Registration failed");
+    } finally {
+      dispatch(hideLoader()); // Loader OFF
     }
   }
 );
 
-
-// ✅ Login Thunk
+// 🔹 Login User
 export const loginUser = createAsyncThunk(
-    "user/login",
-    async (loginData: { email: string; password: string; userRole: string }, { rejectWithValue }) => {
-      try {
-        const response = await API.post("/user/login", loginData);
-        // Token localStorage me save (redundant safety; slice will also persist)
-        if (response.data?.token) {
-          localStorage.setItem("token", response.data.token);
-        }
-        return response.data;
-      } catch (error: any) {
-        return rejectWithValue(error.response?.data?.message || "Login failed");
+  "user/login",
+  async (
+    loginData: { email: string; password: string; userRole: string },
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.post("/user/login", loginData);
+
+      // Token localStorage me save
+      if (response.data?.token) {
+        localStorage.setItem("token", response.data.token);
       }
+
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Login failed");
+    } finally {
+      dispatch(hideLoader());
     }
-  );
-// 🔹 Logout Thunk
+  }
+);
+
+// 🔹 Logout User
 export const logoutUser = createAsyncThunk(
   "user/logout",
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
-      const response = await API.post("/user/logout"); // 👈 tumhara backend route
+      dispatch(showLoader());
+      const response = await API.post("/user/logout");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || "Logout failed");
+    } finally {
+      dispatch(hideLoader());
     }
   }
 );
