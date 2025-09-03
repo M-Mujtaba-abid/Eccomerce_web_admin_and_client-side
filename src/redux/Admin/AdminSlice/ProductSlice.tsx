@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createProduct, fetchProducts, deleteProduct, getProductById, updateProduct, getTotalProductsCount } from "../AdminThunk/ProductThunk";
-// import type { ProductState } from "../typesAdminComponent/productTypes";
-import type {  ProductData } from '../typesAdminComponent/productTypes';
+import { createProduct, fetchProducts, deleteProduct, getProductById, updateProduct, getTotalProductsCount, fetchFeaturedProducts, fetchNewArrivals, fetchOnSaleProducts } from "../AdminThunk/ProductThunk";
+import type { ProductState } from "../typesAdminComponent/productTypes";
 
-const initialState: ProductData = {
+const initialState: ProductState = {
   products: [],
   currentProduct: null,
   totalProductsCount: 0,
   loading: false,
   error: null,
-} as any;
+  featuredProducts: [],
+  newArrivals: [],
+  onSaleProducts: [],
+};
 
 const productSlice = createSlice({
   name: "products",
@@ -123,6 +125,43 @@ const productSlice = createSlice({
       state.error = null;
     });
     builder.addCase(getTotalProductsCount.rejected, (state: any, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+
+    // Featured/New/OnSale lists
+    builder.addCase(fetchFeaturedProducts.pending, (state: any) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchFeaturedProducts.fulfilled, (state: any, action) => {
+      state.loading = false;
+      state.featuredProducts = action.payload;
+    });
+    builder.addCase(fetchFeaturedProducts.rejected, (state: any, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(fetchNewArrivals.pending, (state: any) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchNewArrivals.fulfilled, (state: any, action) => {
+      state.loading = false;
+      state.newArrivals = action.payload;
+    });
+    builder.addCase(fetchNewArrivals.rejected, (state: any, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(fetchOnSaleProducts.pending, (state: any) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchOnSaleProducts.fulfilled, (state: any, action) => {
+      state.loading = false;
+      state.onSaleProducts = action.payload;
+    });
+    builder.addCase(fetchOnSaleProducts.rejected, (state: any, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });

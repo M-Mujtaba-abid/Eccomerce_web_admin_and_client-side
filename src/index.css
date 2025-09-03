@@ -6,3 +6,14 @@
 * {
     @apply transition-colors duration-300;
   }
+
+
+
+  /* 👇 Add this to your global CSS (index.css / tailwind.css) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

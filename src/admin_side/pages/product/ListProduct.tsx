@@ -95,29 +95,59 @@ const ListProduct = () => {
                       {product.status}
                     </span>
                   </div>
+
                   <div className="flex justify-between items-center mb-3">
-  <span className="text-sm text-black dark:text-white font-bold">
-    Stock:{" "}
-    <span className="text-gray-500 dark:text-gray-400 font-normal">
-      {product.stock}
-    </span>
-  </span>
+                    <span className="text-sm text-black dark:text-white font-bold">
+                      Stock:{" "}
+                      <span className="text-gray-500 dark:text-gray-400 font-normal">
+                        {product.stock}
+                      </span>
+                    </span>
 
-  <span className="text-sm text-black dark:text-white font-bold capitalize">
-    Category:{" "}
-    <span className="text-gray-500 dark:text-gray-400 font-normal">
-      {product.category}
-    </span>
-  </span>
+                    <span className="text-sm text-black dark:text-white font-bold capitalize">
+                      Category:{" "}
+                      <span className="text-gray-500 dark:text-gray-400 font-normal">
+                        {product.category}
+                      </span>
+                    </span>
 
-  <span className="text-sm text-black dark:text-white font-bold capitalize">
-    Quantity:{" "}
-    <span className="text-gray-500 dark:text-gray-400 font-normal">
-      {product.Quantity}
-    </span>
-  </span>
-</div>
+                    <span className="text-sm text-black dark:text-white font-bold capitalize">
+                      Quantity:{" "}
+                      <span className="text-gray-500 dark:text-gray-400 font-normal">
+                        {product.Quantity}
+                      </span>
+                    </span>
+                  </div>
 
+                  {/* New Fields Display */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {product.isFeatured && (
+                      <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">
+                        Featured
+                      </span>
+                    )}
+                    {product.isNewArrival && (
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+                        New
+                      </span>
+                    )}
+                    {product.isOnSale && (
+                      <span className="px-2 py-1 text-xs bg-red-100 text-red-800 rounded-full">
+                        Sale
+                      </span>
+                    )}
+                  </div>
+
+                  {product.isOnSale && product.discountPrice && (
+                    <div className="mb-2">
+                      <span className="text-sm text-gray-500 line-through">
+                        Rs. {product.price}
+                      </span>
+                      <span className="text-sm font-bold text-red-600 ml-2">
+                        Rs. {product.discountPrice}
+                      </span>
+                    </div>
+                  )}
 
                   <div className="flex gap-2">
                     <button

@@ -7,7 +7,7 @@ const slides = [
     // text: "Get the best quality organic veggies directly from farms.",
   },
   {
-    image: "/smartearport.jpg",
+    image: "/image.jpg",
     // heading: "Daily Essentials",
     // text: "Affordable groceries delivered to your doorstep.",
   },

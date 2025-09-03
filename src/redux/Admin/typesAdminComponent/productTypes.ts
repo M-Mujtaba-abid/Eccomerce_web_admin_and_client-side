@@ -9,6 +9,10 @@ export interface Product {
   productImage: string;
   category: 'Men' | 'Women' | 'Children';
   Quantity: '15ML' | '50ML' | '100ML';
+  isFeatured: boolean;
+  isNewArrival: boolean;
+  isOnSale: boolean;
+  discountPrice?: number;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -20,6 +24,9 @@ export interface ProductState {
   totalProductsCount: number;
   loading: boolean;
   error: string | null;
+  featuredProducts?: Product[];
+  newArrivals?: Product[];
+  onSaleProducts?: Product[];
 }
 
 // Product data for creation
@@ -32,4 +39,8 @@ export interface ProductData {
   category: 'Men' | 'Women' | 'Children';
   Quantity: '15ML' | '50ML' | '100ML';
   productImage: File;
+  isFeatured: boolean;
+  isNewArrival: boolean;
+  isOnSale: boolean;
+  discountPrice?: number;
 }

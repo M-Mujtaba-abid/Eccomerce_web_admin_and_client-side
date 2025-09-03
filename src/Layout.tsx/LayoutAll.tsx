@@ -17,9 +17,17 @@ import Home from "../user_side/pages/Home";
 import About from "../user_side/pages/About";
 import ContactUs from "../user_side/pages/ContactUs";
 import Products from "../user_side/pages/Products";
+import UserProductDetailPage from "../user_side/pages/ProductDetailPage";
+import Cart from "../user_side/pages/cart/Cart";
+import CheckOut from "../user_side/pages/cart/CheckOut";
+
+import ScrollToTop from "../utils/ScrollToTop";
+import AllProductsRender from "../user_side/pages/AllProductsRender";
 
 const LayoutAll = () => {
   return (
+    <>
+    <ScrollToTop />
     <Routes>
       {/* ✅ Admin routes - nested under /admin */}
       <Route
@@ -50,9 +58,12 @@ const LayoutAll = () => {
         <Route path="home" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<ContactUs />} />
-        
-        <Route path="/web/:category" element={<Products />} />
-
+        <Route path=":category" element={<Products />} />
+        <Route path="product-detail/:productId" element={<UserProductDetailPage />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="checkout" element={<CheckOut />} />
+        {/* <Route path="sale" element={<OnSaleAllProducts />} /> */}
+        <Route path="all-products" element={<AllProductsRender />} />
       </Route>
 
       {/* ✅ Public routes */}
@@ -62,6 +73,7 @@ const LayoutAll = () => {
       {/* ✅ Default redirect */}
       <Route path="/" element={<Login />} />
     </Routes>
+    </>
   );
 };
 

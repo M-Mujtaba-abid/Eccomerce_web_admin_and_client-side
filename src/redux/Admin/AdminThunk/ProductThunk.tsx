@@ -15,6 +15,12 @@ export const createProduct = createAsyncThunk(
       formData.append('stock', productData.stock.toString());
       formData.append('category', productData.category);
       formData.append('Quantity', productData.Quantity);
+      formData.append('isFeatured', productData.isFeatured.toString());
+      formData.append('isNewArrival', productData.isNewArrival.toString());
+      formData.append('isOnSale', productData.isOnSale.toString());
+      if (productData.discountPrice !== undefined) {
+        formData.append('discountPrice', productData.discountPrice.toString());
+      }
       formData.append('productImage', productData.productImage);
 
       const response = await API.post('/product/postproduct', formData, {
@@ -127,6 +133,43 @@ export const getTotalProductsCount = createAsyncThunk(
       return response.data.data.totalProducts;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch total products count');
+    }
+  }
+);
+
+// Featured/New/OnSale thunks (URLs per user spec)
+export const fetchFeaturedProducts = createAsyncThunk(
+  'products/fetchFeaturedProducts',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await API.get('/product/getfeaturedproducts', { params: { getonsaleproducts: 'true' } });
+      return response.data.data || response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch featured products');
+    }
+  }
+);
+
+export const fetchNewArrivals = createAsyncThunk(
+  'products/fetchNewArrivals',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await API.get('/product/getnewarrivals', { params: { isNewArrival: 'true' } });
+      return response.data.data || response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch new arrivals');
+    }
+  }
+);
+
+export const fetchOnSaleProducts = createAsyncThunk(
+  'products/fetchOnSaleProducts',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await API.get('/product/getonsaleproducts', { params: { isfeatured: 'true' } });
+      return response.data.data || response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch on sale products');
     }
   }
 );

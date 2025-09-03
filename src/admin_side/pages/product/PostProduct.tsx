@@ -30,6 +30,10 @@ const PostProduct = () => {
     category: "Men" as "Men" | "Women" | "Children",
     Quantity: "15ML" as "15ML" | "50ML" | "100ML",
     productImage: null as File | null,
+    isFeatured: false,
+    isNewArrival: false,
+    isOnSale: false,
+    discountPrice: "",
   });
 
   const [imagePreview, setImagePreview] = useState<string>("");
@@ -56,6 +60,10 @@ const PostProduct = () => {
         category: currentProduct.category,
         Quantity: currentProduct.Quantity,
         productImage: null,
+        isFeatured: currentProduct.isFeatured,
+        isNewArrival: currentProduct.isNewArrival,
+        isOnSale: currentProduct.isOnSale,
+        discountPrice: currentProduct.discountPrice.toString(),
       });
       setImagePreview(currentProduct.productImage);
     }
@@ -101,6 +109,10 @@ const PostProduct = () => {
         stock: parseInt(formData.stock),
         category: formData.category,
         Quantity: formData.Quantity,
+        isFeatured: formData.isFeatured,
+        isNewArrival: formData.isNewArrival,
+        isOnSale: formData.isOnSale,
+        discountPrice: parseFloat(formData.discountPrice),
       };
       if (formData.productImage) updateData.productImage = formData.productImage;
 
@@ -125,6 +137,10 @@ const PostProduct = () => {
         category: formData.category,
         Quantity: formData.Quantity,
         productImage: formData.productImage,
+        isFeatured: formData.isFeatured,
+        isNewArrival: formData.isNewArrival,
+        isOnSale: formData.isOnSale,
+        discountPrice: parseFloat(formData.discountPrice),
       };
 
       try {
@@ -138,6 +154,10 @@ const PostProduct = () => {
           category: "Men",
           Quantity: "15ML",
           productImage: null,
+          isFeatured: false,
+          isNewArrival: false,
+          isOnSale: false,
+          discountPrice: "",
         });
         setImagePreview("");
       } catch (error) {
@@ -249,6 +269,62 @@ const PostProduct = () => {
               <option value="50ML">50ML</option>
               <option value="100ML">100ML</option>
             </select>
+          </div>
+
+          {/* Homepage Control Fields */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>Featured Product</label>
+              <select
+                name="isFeatured"
+                value={formData.isFeatured.toString()}
+                onChange={handleInputChange}
+                className={inputClass}
+              >
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>New Arrival</label>
+              <select
+                name="isNewArrival"
+                value={formData.isNewArrival.toString()}
+                onChange={handleInputChange}
+                className={inputClass}
+              >
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Sale Fields */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className={labelClass}>On Sale</label>
+              <select
+                name="isOnSale"
+                value={formData.isOnSale.toString()}
+                onChange={handleInputChange}
+                className={inputClass}
+              >
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Discount Price</label>
+              <input
+                type="number"
+                name="discountPrice"
+                placeholder="Enter discount price"
+                value={formData.discountPrice}
+                onChange={handleInputChange}
+                className={inputClass}
+                disabled={!formData.isOnSale}
+              />
+            </div>
           </div>
 
           {/* Price & Stock */}
