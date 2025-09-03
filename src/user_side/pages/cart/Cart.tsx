@@ -69,8 +69,8 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4">
-        <div className="max-w-lg mx-auto text-center">
+      <div className="min-h-screen bg-gray-100  dark:bg-gray-900 py-12 px-4">
+        <div className="max-w-lg mx-auto text-center mt-12">
           <ShoppingBag className="w-20 h-20 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-2">
             Your cart is empty
