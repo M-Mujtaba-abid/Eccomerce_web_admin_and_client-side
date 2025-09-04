@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const slides = [
   {
-    image: "/perfumeWithLight.jpg",
+    image: "/edit.jpg",
     // heading: "Fresh Organic Vegetables",
     // text: "Get the best quality organic veggies directly from farms.",
   },

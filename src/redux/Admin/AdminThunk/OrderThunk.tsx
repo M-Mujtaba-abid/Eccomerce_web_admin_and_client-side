@@ -106,7 +106,7 @@ export const fetchTotalOrders = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       dispatch(showLoader());
-      const response = await API.get("/order/total");
+      const response = await API.get("/order/gettotalorderbyadmin");
       return response.data.data.totalOrders;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || "Fetching total orders failed");

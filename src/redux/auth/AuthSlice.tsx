@@ -1,12 +1,13 @@
 
 
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, logoutUser, registerUser } from "../auth/AuthThunk";
+import { fetchTotalUsers, loginUser, logoutUser, registerUser } from "../auth/AuthThunk";
 
 interface UserState {
   loading: boolean;
   error: string | null;
   success: boolean;
+  totalUsers: number;
   user: any | null; // backend response me user object with userRole
   token: string | null;
 }
@@ -17,6 +18,7 @@ const persistedUser = typeof localStorage !== 'undefined' ? localStorage.getItem
 const initialState: UserState = {
   loading: false,
   token: persistedToken,
+   totalUsers: 0,
   error: null,
   success: false,
   user: persistedUser ? JSON.parse(persistedUser) : null,
@@ -97,6 +99,25 @@ const userSlice = createSlice({
         }
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+
+       // 🔹 Pending
+      .addCase(fetchTotalUsers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      // 🔹 Fulfilled
+      .addCase(fetchTotalUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.totalUsers = action.payload;
+        state.error = null;
+      })
+
+      // 🔹 Rejected
+      .addCase(fetchTotalUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

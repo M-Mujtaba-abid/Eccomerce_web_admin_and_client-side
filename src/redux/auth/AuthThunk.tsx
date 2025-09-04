@@ -64,3 +64,20 @@ export const logoutUser = createAsyncThunk(
     }
   }
 );
+
+
+
+export const fetchTotalUsers = createAsyncThunk(
+  "user/fetchTotalUsers",
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.get("/user/totaluser"); // 👈 yahan aapka API endpoint hoga
+      return response.data.data.totalUser; // sirf number return karenge
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Failed to fetch total users");
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
