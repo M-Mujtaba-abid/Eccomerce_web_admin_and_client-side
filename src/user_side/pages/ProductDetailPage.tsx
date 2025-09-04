@@ -2,8 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../redux/Admin/AdminThunk/ProductThunk";
-import { clearError, clearCurrentProduct } from "../../redux/Admin/AdminSlice/ProductSlice";
+import {
+  clearError,
+  clearCurrentProduct,
+} from "../../redux/Admin/AdminSlice/ProductSlice";
 import type { RootState, AppDispatch } from "../../redux/store";
+import AddToCartButton from "../component/AddToCartButton";
 
 const ProductDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -195,22 +199,14 @@ const ProductDetailPage = () => {
                   )}
 
                   {/* Created Date */}
-                  {currentProduct.createdAt && (
+                  {/* {currentProduct.createdAt && (
                     <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      {/* <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        Created:
-                      </span> */}
-                      {/* <span className="text-lg font-medium text-gray-800 dark:text-gray-100">
-                        {new Date(currentProduct.createdAt).toLocaleDateString()}
-                      </span> */}
-                               <button
-                
-                className="px-4 py-2 bg-blue-600 w-full text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
-              >
-                Order now
-              </button>
+                      <button className="px-4 py-2 bg-blue-600 w-full text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        Order now
+                      </button>
                     </div>
-                  )}
+                    )} */}
+                    <AddToCartButton productId={currentProduct.id} className="p-4 pt-0" />
                 </div>
               </div>
             </div>
