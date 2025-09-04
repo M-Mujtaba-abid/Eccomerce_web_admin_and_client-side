@@ -1,228 +1,54 @@
-// // import React, { useState } from "react";
-// // import ThemeToggle from "../../ThemeToggle";
-// // import { FiMenu, FiX } from "react-icons/fi";
-// // import { Link } from "react-router-dom";
-
-// // const Navbar: React.FC = () => {
-// //   const [isOpen, setIsOpen] = useState(false);
-
-// //   return (
-// //     <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-50">
-// //       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-// //         <div className="flex justify-between h-16 items-center">
-// //           {/* Left: Logo */}
-// //           <div className="flex items-center">
-// //             <img
-// //               src="/logoCrop.jpg"
-// //               alt="M.Z"
-// //               className="h-10 w-10 rounded-full mr-2"
-// //             />
-// //             <span className="font-bold text-lg text-gray-800 dark:text-white">
-// //               M.Z
-// //             </span>
-// //           </div>
-
-// //           {/* Center: Links (Desktop) */}
-// //           <div className="hidden md:flex space-x-8">
-// //             <Link
-// //               to="/web"
-// //               className="text-gray-700 dark:text-gray-200 hover:text-blue-500"
-// //             >
-// //               Home
-// //             </Link>
-// //             <Link
-// //               to="/web/about"
-// //               className="text-gray-700 dark:text-gray-200 hover:text-blue-500"
-// //             >
-// //               About
-// //             </Link>
-// //             <Link
-// //               to="/web/contact"
-// //               className="text-gray-700 dark:text-gray-200 hover:text-blue-500"
-// //             >
-// //               Contact Us
-// //             </Link>
-// //           </div>
-
-// //           {/* Right: Theme Toggle */}
-// //           <div className="flex items-center space-x-4">
-// //             <ThemeToggle />
-
-// //             {/* Mobile menu button */}
-// //             <button
-// //               onClick={() => setIsOpen(!isOpen)}
-// //               className="md:hidden text-gray-700 dark:text-gray-200"
-// //             >
-// //               {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-// //             </button>
-// //           </div>
-// //         </div>
-// //       </div>
-
-// //       {/* Mobile Menu */}
-// //       {isOpen && (
-// //         <div className="md:hidden bg-white dark:bg-gray-800 px-4 pb-4 space-y-2">
-// //           <Link
-// //             to="/web"
-// //             className="block text-gray-700 dark:text-gray-200 hover:text-blue-500"
-// //           >
-// //             Home
-// //           </Link>
-// //           <Link
-// //             to="/web/about"
-// //             className="block text-gray-700 dark:text-gray-200 hover:text-blue-500"
-// //           >
-// //             About
-// //           </Link>
-// //           <Link
-// //             to="/web/contact"
-// //             className="text-gray-700 dark:text-gray-200 hover:text-blue-500"
-// //           >
-// //             Contact Us
-// //           </Link>
-// //         </div>
-// //       )}
-// //     </nav>
-// //   );
-// // };
-
-// // export default Navbar;
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from "react";
-// import ThemeToggle from "../../ThemeToggle";
-// import { FiMenu, FiX, FiUser, FiShoppingCart, FiSearch, FiMoreVertical } from "react-icons/fi";
-// import { Link, useLocation } from "react-router-dom";
-
-// const Navbar: React.FC = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-//   const location = useLocation();
-
-//   const links = [
-//     { name: "Home", path: "/web" },
-//     { name: "About", path: "/web/about" },
-//     { name: "Contact Us", path: "/web/contact" },
-//   ];
-
-//   return (
-//     <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-50">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="flex justify-between h-16 items-center">
-
-//           {/* Left: Logo */}
-//           <div className="flex items-center">
-//             <img
-//               src="/logoCrop.jpg"
-//               alt="M.Z"
-//               className="h-10 w-10 rounded-full mr-2"
-//             />
-//             <span className="font-extrabold text-xl text-gray-800 dark:text-white">
-//               M.Z Luxury Fragrance
-//             </span>
-//           </div>
-
-//           {/* Center: Links (Desktop) */}
-//           <div className="hidden md:flex space-x-8">
-//             {links.map((link) => (
-//               <Link
-//                 key={link.name}
-//                 to={link.path}
-//                 className={`text-gray-700 dark:text-gray-200 hover:text-blue-500 relative ${
-//                   location.pathname === link.path ? "font-semibold" : ""
-//                 }`}
-//               >
-//                 {link.name}
-//                 {location.pathname === link.path && (
-//                   <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-500 rounded" />
-//                 )}
-//               </Link>
-//             ))}
-//           </div>
-
-//           {/* Right: Icons */}
-//           <div className="flex items-center space-x-4">
-//             <ThemeToggle />
-//             <FiSearch size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-
-//             <div className="relative">
-//               <FiUser
-//                 size={22}
-//                 className="cursor-pointer text-gray-700 dark:text-gray-200"
-//                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-//               />
-//               {isUserMenuOpen && (
-//                 <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 shadow-lg rounded-md py-2">
-//                   <button className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-//                     Logout
-//                   </button>
-//                 </div>
-//               )}
-//             </div>
-
-//             <FiShoppingCart size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-//             <FiMoreVertical size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-
-//             {/* Mobile menu button */}
-//             <button
-//               onClick={() => setIsOpen(!isOpen)}
-//               className="md:hidden text-gray-700 dark:text-gray-200"
-//             >
-//               {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Mobile Menu */}
-//       {isOpen && (
-//         <div className="md:hidden bg-white dark:bg-gray-800 px-4 pb-4 space-y-2">
-//           {links.map((link) => (
-//             <Link
-//               key={link.name}
-//               to={link.path}
-//               className="block text-gray-700 dark:text-gray-200 hover:text-blue-500"
-//             >
-//               {link.name}
-//             </Link>
-//           ))}
-//           <div className="flex items-center space-x-4 mt-2">
-//             <FiSearch size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-//             <FiUser size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-//             <FiShoppingCart size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-//             <FiMoreVertical size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-//           </div>
-//         </div>
-//       )}
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-import React, { useState } from "react";
-import ThemeToggle from "../../ThemeToggle";
-import { FiMenu, FiX, FiUser, FiShoppingCart, FiSearch, FiMoreVertical } from "react-icons/fi";
+// src/components/layout/Navbar.tsx
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
+import {
+  FiMenu,
+  FiX,
+  FiShoppingCart,
+  FiSearch,
+  FiMoreVertical,
+  FiChevronDown,
+} from "react-icons/fi";
+import { AnimatePresence, motion } from "framer-motion";
+import ThemeToggle from "../../ThemeToggle";
+
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
-  const { cartItems } = useSelector((state: RootState) => state.cart) as any;
+  const location = useLocation();
+
+  const { cartItems } = useSelector((s: RootState) => s.cart) as any;
+
+  // UI state
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [insightsOpen, setInsightsOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+
+  // refs for outside-click
+  const insightsRef = useRef<HTMLDivElement | null>(null);
+  const moreRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const onDocClick = (e: MouseEvent) => {
+      if (insightsRef.current && !insightsRef.current.contains(e.target as Node)) {
+        setInsightsOpen(false);
+      }
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, []);
+
+  // close popovers on route change
+  useEffect(() => {
+    setInsightsOpen(false);
+    setMoreOpen(false);
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   const links = [
     { name: "Home", path: "/web" },
@@ -230,114 +56,290 @@ const Navbar: React.FC = () => {
     { name: "Contact Us", path: "/web/contact" },
   ];
 
-  const renderLinks = (isMobile = false) =>
-    links.map((link) => (
-      <Link
-        key={link.name}
-        to={link.path}
-        className={`block ${isMobile ? "py-2" : "relative"} text-gray-700 dark:text-gray-200 hover:text-blue-500 ${
-          location.pathname === link.path && !isMobile ? "font-semibold" : ""
-        }`}
-      >
-        {link.name}
-        {!isMobile && location.pathname === link.path && (
-          <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-500 rounded" />
-        )}
-      </Link>
-    ));
+  
+const insightsLinks = [
+  { name: "Men", path: "/web/men" },
+  { name: "Women", path: "/web/women" },
+  { name: "Children", path: "/web/children" },
+  { name: "Featured", path: "/web/all-products", state: { category: "featured" } },
+  { name: "On Sale", path: "/web/all-products", state: { category: "onSale" } },
+  { name: "New Arrivals", path: "/web/all-products", state: { category: "newArrival" } },
+];
+  const isActive = (path: string) => location.pathname === path;
 
-  const handleCartClick = () => {
-    navigate("/web/cart");
-  };
+  const handleCartClick = () => navigate("/web/cart");
+  const handleSearchClick = () => navigate("/web/search");
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-md fixed w-full z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-
-          {/* Left: Logo */}
-          <div className="flex items-center">
+    <nav className="fixed  inset-x-0 top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-sm">
+      <div className="mx-auto  max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex  h-[80px] items-center justify-between">
+          {/* Left — Logo */}
+          <button
+            onClick={() => navigate("/web")}
+            className="flex items-center space-x-2 group"
+            aria-label="Go to homepage"
+          >
             <img
               src="/logoCrop.jpg"
               alt="M.Z"
-              className="h-10 w-10 rounded-full mr-2"
+              className="h-10 w-10 rounded-full ring-2 ring-gray-200 dark:ring-gray-700 group-hover:ring-blue-500 transition"
             />
-            <span className="font-extrabold text-xl text-gray-800 dark:text-white">
+            <span className="font-logo text-xl font-extrabold tracking-tight text-gray-900 dark:text-white">
               M.Z Luxury Fragrance
             </span>
+          </button>
+
+          {/* Center — Desktop nav */}
+          <div className="hidden md:flex items-center space-x-8">
+            {links.map((l) => (
+              <Link
+                key={l.name}
+                to={l.path}
+                className={`relative text-sm font-medium transition-colors ${
+                  isActive(l.path)
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                }`}
+              >
+                {l.name}
+                {isActive(l.path) && (
+                  <span className="absolute left-0 -bottom-1 h-0.5 w-full rounded bg-blue-600 dark:bg-blue-400" />
+                )}
+              </Link>
+            ))}
+
+            {/* Insights dropdown */}
+            <div
+              className="relative"
+              ref={insightsRef}
+              onMouseEnter={() => setInsightsOpen(true)}
+              onMouseLeave={() => setInsightsOpen(false)}
+            >
+              <button
+                onClick={() => setInsightsOpen((s) => !s)}
+                className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+                  location.pathname.startsWith("/web/men") ||
+                  location.pathname.startsWith("/web/women") ||
+                  location.pathname.startsWith("/web/children") ||
+                  location.pathname.startsWith("/web/featured") ||
+                  location.pathname.startsWith("/web/on-sale") ||
+                  location.pathname.startsWith("/web/new-arrivals")
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                }`}
+                aria-haspopup="menu"
+                aria-expanded={insightsOpen}
+              >
+                Insights <FiChevronDown className={`transition ${insightsOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              <AnimatePresence>
+                {insightsOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    className="absolute left-0 mt-2 w-56 overflow-hidden rounded-xl border border-gray-200/70 bg-white shadow-lg dark:border-gray-700/70 dark:bg-gray-800"
+                  >
+                    <ul className="py-2">
+                      {insightsLinks.map((link) => (
+                        <li key={link.name}>
+                          <Link
+                            to={link.path}
+                             state={link.state}
+                            className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-700/60 dark:hover:text-blue-300"
+                          >
+                            {link.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
-          {/* Center: Links (Desktop) */}
-          <div className="hidden md:flex space-x-8">{renderLinks()}</div>
+          {/* Right — Desktop actions (Search, Cart, Theme, More) */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* 1) Search */}
+            <button
+              onClick={handleSearchClick}
+              className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
+              aria-label="Search"
+            >
+              <FiSearch className="h-5 w-5 text-gray-700 transition group-hover:text-blue-600 dark:text-gray-200 dark:group-hover:text-blue-400" />
+            </button>
 
-          {/* Right: Icons */}
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            <FiSearch size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-
-            <div className="relative">
-              <FiUser
-                size={22}
-                className="cursor-pointer text-gray-700 dark:text-gray-200"
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              />
-              {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 shadow-lg rounded-md py-2">
-                  <button className="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <div className="relative">
-              <FiShoppingCart 
-                size={22} 
-                className="cursor-pointer text-gray-700 dark:text-gray-200 hover:text-blue-500 transition-colors" 
-                onClick={handleCartClick}
-              />
-              {cartItems && cartItems.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+            {/* 2) Cart */}
+            <button
+              onClick={handleCartClick}
+              className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
+              aria-label="Cart"
+            >
+              <FiShoppingCart className="h-5 w-5 text-gray-700 transition group-hover:text-blue-600 dark:text-gray-200 dark:group-hover:text-blue-400" />
+              {!!cartItems?.length && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[11px] font-bold text-white">
                   {cartItems.length}
                 </span>
               )}
-            </div>
-            <FiMoreVertical size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
+            </button>
 
-            {/* Mobile menu button */}
+            {/* 3) Theme */}
+            <ThemeToggle />
+
+            {/* 4) More (3 dots) */}
+            <div className="relative" ref={moreRef}>
+              <button
+                onClick={() => setMoreOpen((s) => !s)}
+                className="rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
+                aria-haspopup="menu"
+                aria-expanded={moreOpen}
+                aria-label="More"
+              >
+                <FiMoreVertical className="h-5 w-5 text-gray-700 dark:text-gray-200" />
+              </button>
+
+              <AnimatePresence>
+                {moreOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    className="absolute right-0 mt-2 w-48 overflow-hidden rounded-xl border border-gray-200/70 bg-white shadow-lg dark:border-gray-700/70 dark:bg-gray-800"
+                    role="menu"
+                  >
+                    <Link
+                      to="/web/profile"
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700/60"
+                      role="menuitem"
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      to="/web/myorders"
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700/60"
+                      role="menuitem"
+                    >
+                      My Orders
+                    </Link>
+                    {/* <Link
+                      to="/web/settings"
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700/60"
+                      role="menuitem"
+                    >
+                      Settings
+                    </Link> */}
+                    <button
+                      onClick={() => {
+                        // TODO: dispatch(logout())
+                        navigate("/web/login");
+                      }}
+                      className="block w-full px-4 py-2.5 text-left text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+                      role="menuitem"
+                    >
+                      Logout
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Mobile — right side: ONLY Search, Cart, Hamburger */}
+          <div className="flex items-center gap-2 md:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-gray-700 dark:text-gray-200"
+              onClick={handleSearchClick}
+              className="rounded-full p-2"
+              aria-label="Search"
             >
-              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+              <FiSearch className="h-6 w-6 text-gray-800 dark:text-gray-100" />
+            </button>
+
+            <button
+              onClick={handleCartClick}
+              className="relative rounded-full p-2"
+              aria-label="Cart"
+            >
+              <FiShoppingCart className="h-6 w-6 text-gray-800 dark:text-gray-100" />
+              {!!cartItems?.length && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1.5 text-[11px] font-bold text-white">
+                  {cartItems.length}
+                </span>
+              )}
+            </button>
+
+            <button
+              onClick={() => setMobileOpen((s) => !s)}
+              className="rounded-md p-2"
+              aria-label="Open menu"
+            >
+              {mobileOpen ? (
+                <FiX className="h-6 w-6 text-gray-800 dark:text-gray-100" />
+              ) : (
+                <FiMenu className="h-6 w-6 text-gray-800 dark:text-gray-100" />
+              )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-800 px-4 pb-4 space-y-2">
-          {renderLinks(true)}
-          <div className="flex items-center space-x-4 mt-2">
-            <FiSearch size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-            <FiUser size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-            <div className="relative">
-              <FiShoppingCart 
-                size={22} 
-                className="cursor-pointer text-gray-700 dark:text-gray-200 hover:text-blue-500 transition-colors" 
-                onClick={handleCartClick}
-              />
-              {cartItems && cartItems.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItems.length}
-                </span>
-              )}
+      {/* Mobile sheet */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden overflow-hidden border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900"
+          >
+            <div className="px-4 py-3">
+              <nav className="grid gap-1">
+                <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web">
+                  Home
+                </Link>
+                <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/about">
+                  About
+                </Link>
+                <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/men">
+                  Men
+                </Link>
+                <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/women">
+                  Women
+                </Link>
+                <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/children">
+                  Children
+                </Link>
+                <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/contact">
+                  Contact Us
+                </Link>
+
+                {/* Theme inline on mobile */}
+                <div className="px-1 py-2">
+                  <ThemeToggle />
+                </div>
+
+                <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/profile">
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    // TODO: dispatch(logout())
+                    navigate("/web/login");
+                  }}
+                  className="rounded px-3 py-2 text-left text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
+                >
+                  Logout
+                </button>
+              </nav>
             </div>
-            <FiMoreVertical size={22} className="cursor-pointer text-gray-700 dark:text-gray-200" />
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

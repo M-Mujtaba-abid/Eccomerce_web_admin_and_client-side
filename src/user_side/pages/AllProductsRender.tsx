@@ -53,8 +53,8 @@ const AllProductsRender = () => {
   };
 
   return (
-    <div className={`pt-[100px] rounded-xl p-8 ${bgColor}`}>
-      <h2 className="text-2xl font-bold mb-6 dark:text-white">
+    <div className={` rounded-xl p-8 ${bgColor}`}>
+      <h2 className="pt-[80px] text-2xl font-bold mb-6 dark:text-white">
         {category === "featured"
           ? "Featured Products"
           : category === "onSale"
@@ -67,7 +67,7 @@ const AllProductsRender = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-6"
       >
         {productsToShow.map((p: any) => (
           <motion.div

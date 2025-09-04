@@ -45,7 +45,7 @@ const NewArrivals = () => {
 
   return (
     <div
-      className="mt-12 rounded-xl p-8 
+      className=" rounded-xl p-8 
       bg-gradient-to-br from-green-100 via-white to-green-100 
       dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative"
     >
