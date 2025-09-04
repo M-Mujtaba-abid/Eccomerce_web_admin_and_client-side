@@ -1,7 +1,9 @@
 // src/pages/About.tsx
-// import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="pt-[100px] px-6 md:px-16 lg:px-32 pb-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header / Hero */}
@@ -25,9 +27,9 @@ const About = () => {
             Whether you are choosing a signature scent for yourself or a gift for a loved one, our carefully curated collection promises elegance, luxury, and sophistication in every bottle.
           </p>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center w-[300px] h-[320px]">
           <img
-            src="/images/about-perfume.jpg"
+            src="/carosel.jpg"
             alt="Perfume bottles"
             className="rounded-xl shadow-lg w-full max-w-md object-cover"
           />
@@ -68,7 +70,7 @@ const About = () => {
           Explore our collection and find the fragrance that tells your story.
         </p>
         <button
-          onClick={() => window.location.href="/web/all-products"}
+          onClick={() => navigate("/web/men")}
           className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition"
         >
           Shop Now
