@@ -66,3 +66,52 @@ export const deleteOrder = createAsyncThunk(
     }
   }
 );
+
+
+// 🔹 Get all orders (Admin)
+export const fetchAllOrders = createAsyncThunk(
+  "order/fetchAll",
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.get("/order/getallorderbyadmin"); // backend route
+      return response.data.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Fetching all orders failed");
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+// 🔹 Get single order by ID at admin side
+export const fetchOrderById = createAsyncThunk(
+  "order/fetchById",
+  async (id: number, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.get(`/order/getdetailorderbyid/${id}`);
+      return response.data.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Fetching order details failed");
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+// 🔹 Get total number of orders at dashboar
+export const fetchTotalOrders = createAsyncThunk(
+  "order/fetchTotal",
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.get("/order/total");
+      return response.data.data.totalOrders;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Fetching total orders failed");
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);

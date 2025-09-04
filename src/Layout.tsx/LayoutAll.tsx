@@ -121,6 +121,8 @@ import AllProductsRender from "../user_side/pages/AllProductsRender";
 import ThankYouContent from "../user_side/pages/cart/ThankYouContent";
 import MyOrders from "../user_side/pages/cart/oder/MyOrders";
 import SearchResults from "../user_side/component/SearchResults";
+import OrderDirectory from "../admin_side/pages/order/OrderDirectory";
+import OrderDetails from "../admin_side/pages/order/Orderdetails";
 
 const LayoutAll = () => {
   return (
@@ -141,6 +143,8 @@ const LayoutAll = () => {
           <Route path="product/:productId" element={<PostProduct />} />
           <Route path="products" element={<ListProduct />} />
           <Route path="product-detail/:productId" element={<ProductDetailPage />} />
+          <Route path="orders" element={<OrderDirectory />} />
+          <Route path="orders/:id" element={<OrderDetails />} />
         </Route>
 
         {/* ---------------------- Web/User Routes ---------------------- */}

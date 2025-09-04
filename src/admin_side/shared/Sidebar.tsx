@@ -74,6 +74,32 @@ const Sidebar = () => {
                 All Products
               </Link>
             </li>
+            <li>
+              <Link
+                to="/admin/orders"
+                className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                  isActive("/admin/orders")
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                Order Management
+              </Link>
+            </li>
+            {/* <li>
+              <Link
+                to="/admin/products"
+                className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+                  isActive("/admin/products")
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                All Products
+              </Link>
+            </li> */}
           </ul>
         </nav>
       </aside>
