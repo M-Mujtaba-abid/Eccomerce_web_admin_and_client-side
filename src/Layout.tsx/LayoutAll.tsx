@@ -23,6 +23,8 @@ import CheckOut from "../user_side/pages/cart/CheckOut";
 
 import ScrollToTop from "../utils/ScrollToTop";
 import AllProductsRender from "../user_side/pages/AllProductsRender";
+import ThankYouContent from "../user_side/pages/cart/ThankYouContent";
+import MyOrders from "../user_side/pages/cart/oder/MyOrders";
 
 const LayoutAll = () => {
   return (
@@ -62,8 +64,10 @@ const LayoutAll = () => {
         <Route path="product-detail/:productId" element={<UserProductDetailPage />} />
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<CheckOut />} />
-        {/* <Route path="sale" element={<OnSaleAllProducts />} /> */}
         <Route path="all-products" element={<AllProductsRender />} />
+        <Route path="thankyou" element={<ThankYouContent/>}/>
+        <Route path="myorders" element={<MyOrders/>}/>
+
       </Route>
 
       {/* ✅ Public routes */}

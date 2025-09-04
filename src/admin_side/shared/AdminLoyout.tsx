@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 
 const AdminLayout = () => {
-  console.log('AdminLayout rendering');
+  // console.log('AdminLayout rendering');
   
   return (
     <div className="flex min-h-screen">
