@@ -1,67 +1,80 @@
+// src/pages/About.tsx
 // import React from "react";
 
 const About = () => {
   return (
-    // <div className="bg-gray-50 min-h-screen flex flex-col items-center justify-center px-6 py-12">
-    //   {/* Heading */}
-    //   <div className="max-w-4xl text-center">
-    //     <h1 className="text-4xl md:text-5xl font-bold text-green-700 mb-6">
-    //       About Us
-    //     </h1>
-    //     <p className="text-lg text-gray-600 leading-relaxed mb-10">
-    //       Welcome to <span className="font-semibold text-green-600">EcoBazar</span>,
-    //       your trusted online grocery partner. Our mission is to provide fresh,
-    //       organic, and high-quality groceries at your doorstep. We believe in
-    //       supporting local farmers and promoting a healthy lifestyle.
-    //     </p>
-    //   </div>
+    <div className="pt-[100px] px-6 md:px-16 lg:px-32 pb-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      {/* Header / Hero */}
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4">
+          About M.Z Luxury Fragrance
+        </h1>
+        <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+          "Perfume is the art that makes memory tangible." – A fragrance tells a story, and we craft each scent to make yours unforgettable.
+        </p>
+      </div>
 
-    //   {/* 2 Column Layout */}
-    //   <div className="max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-    //     {/* Left Image */}
-    //     <div className="flex justify-center">
-    //       <img
-    //         src="/about-grocery.jpg" // Public folder se image (public/about-grocery.jpg)
-    //         alt="Grocery"
-    //         className="rounded-2xl shadow-lg w-full max-w-md"
-    //       />
-    //     </div>
+      {/* Our Story */}
+      <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Our Story</h2>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            At M.Z Luxury Fragrance, we believe every scent evokes emotions and memories. From timeless classics to contemporary creations, our perfumes are designed to leave a lasting impression. We source the finest ingredients from around the world and craft fragrances that celebrate individuality.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300">
+            Whether you are choosing a signature scent for yourself or a gift for a loved one, our carefully curated collection promises elegance, luxury, and sophistication in every bottle.
+          </p>
+        </div>
+        <div className="flex justify-center">
+          <img
+            src="/images/about-perfume.jpg"
+            alt="Perfume bottles"
+            className="rounded-xl shadow-lg w-full max-w-md object-cover"
+          />
+        </div>
+      </div>
 
-    //     {/* Right Content */}
-    //     <div>
-    //       <h2 className="text-2xl font-bold text-gray-800 mb-4">Why Choose Us?</h2>
-    //       <ul className="space-y-4 text-gray-600">
-    //         <li className="flex items-start">
-    //           <span className="text-green-600 font-bold mr-2">✔</span>
-    //           Fresh & Organic Products directly from farms
-    //         </li>
-    //         <li className="flex items-start">
-    //           <span className="text-green-600 font-bold mr-2">✔</span>
-    //           Fast & Safe Delivery at your doorstep
-    //         </li>
-    //         <li className="flex items-start">
-    //           <span className="text-green-600 font-bold mr-2">✔</span>
-    //           Affordable prices with exclusive discounts
-    //         </li>
-    //         <li className="flex items-start">
-    //           <span className="text-green-600 font-bold mr-2">✔</span>
-    //           24/7 Customer Support
-    //         </li>
-    //       </ul>
-    //     </div>
-    //   </div>
+      {/* Our Values */}
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">Our Values</h2>
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
+            <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Quality Ingredients</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              We use only premium natural oils and essences to craft exquisite fragrances.
+            </p>
+          </div>
+          <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
+            <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Luxury Experience</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Every bottle is designed to give you a premium and unforgettable experience.
+            </p>
+          </div>
+          <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition">
+            <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Customer Satisfaction</h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              We are committed to providing personalized service and ensuring our customers are delighted.
+            </p>
+          </div>
+        </div>
+      </div>
 
-    //   {/* Mission / Vision Section */}
-    //   <div className="max-w-5xl mt-16 text-center">
-    //     <h2 className="text-2xl font-bold text-gray-800 mb-6">Our Mission</h2>
-    //     <p className="text-gray-600 leading-relaxed">
-    //       At EcoBazar, we aim to make healthy living easy and accessible to
-    //       everyone. From fresh fruits & vegetables to everyday essentials, we
-    //       are committed to quality, sustainability, and customer satisfaction.
-    //     </p>
-    //   </div>
-    // </div>
-    <h1>i am about </h1>
+      {/* Call to Action */}
+      <div className="text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          Discover Your Signature Scent
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-6">
+          Explore our collection and find the fragrance that tells your story.
+        </p>
+        <button
+          onClick={() => window.location.href="/web/all-products"}
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition"
+        >
+          Shop Now
+        </button>
+      </div>
+    </div>
   );
 };
 

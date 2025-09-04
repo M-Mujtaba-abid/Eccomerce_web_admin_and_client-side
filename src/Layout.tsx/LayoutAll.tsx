@@ -25,6 +25,7 @@ import ScrollToTop from "../utils/ScrollToTop";
 import AllProductsRender from "../user_side/pages/AllProductsRender";
 import ThankYouContent from "../user_side/pages/cart/ThankYouContent";
 import MyOrders from "../user_side/pages/cart/oder/MyOrders";
+import SearchResults from "../user_side/component/SearchResults";
 
 const LayoutAll = () => {
   return (
@@ -67,6 +68,8 @@ const LayoutAll = () => {
         <Route path="all-products" element={<AllProductsRender />} />
         <Route path="thankyou" element={<ThankYouContent/>}/>
         <Route path="myorders" element={<MyOrders/>}/>
+        <Route path="/web/search" element={<SearchResults />} />
+
 
       </Route>
 

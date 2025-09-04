@@ -189,3 +189,23 @@ export const fetchOnSaleProducts = createAsyncThunk(
 );
 
 
+
+// 🔍 Search Products Thunk
+export const searchProductsThunk = createAsyncThunk(
+  "products/searchProducts",
+  async (query: string, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.get("/product/search", {
+        params: { q: query }, // backend expects ?q=apple
+      });
+      return response.data; // backend returns array
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to search products"
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);

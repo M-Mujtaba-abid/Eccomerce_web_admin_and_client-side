@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createProduct, fetchProducts, deleteProduct, getProductById, updateProduct, getTotalProductsCount, fetchFeaturedProducts, fetchNewArrivals, fetchOnSaleProducts } from "../AdminThunk/ProductThunk";
+import { createProduct, fetchProducts, deleteProduct, getProductById, updateProduct, getTotalProductsCount, fetchFeaturedProducts, fetchNewArrivals, fetchOnSaleProducts, searchProductsThunk } from "../AdminThunk/ProductThunk";
 import type { ProductState } from "../typesAdminComponent/productTypes";
 
 const initialState: ProductState = {
@@ -10,6 +10,7 @@ const initialState: ProductState = {
   error: null,
   featuredProducts: [],
   newArrivals: [],
+  searchResults: [], // 🔍 yahan store hoga
   onSaleProducts: [],
 };
 
@@ -129,7 +130,7 @@ const productSlice = createSlice({
       state.error = action.payload as string;
     });
 
-    // Featured/New/OnSale lists
+    // Featured lists
     builder.addCase(fetchFeaturedProducts.pending, (state: any) => {
       state.loading = true;
     });
@@ -141,7 +142,7 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.payload as string;
     });
-
+        //  New lists
     builder.addCase(fetchNewArrivals.pending, (state: any) => {
       state.loading = true;
     });
@@ -153,7 +154,7 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.payload as string;
     });
-
+// /OnSale lists
     builder.addCase(fetchOnSaleProducts.pending, (state: any) => {
       state.loading = true;
     });
@@ -165,6 +166,21 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.payload as string;
     });
+
+     // ✅ Search Products
+    builder.addCase(searchProductsThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(searchProductsThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.searchResults = action.payload;
+    });
+    builder.addCase(searchProductsThunk.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+
   },
 });
 
