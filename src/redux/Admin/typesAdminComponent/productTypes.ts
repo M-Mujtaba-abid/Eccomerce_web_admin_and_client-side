@@ -27,6 +27,7 @@ export interface ProductState {
   featuredProducts?: Product[];
   newArrivals?: Product[];
   onSaleProducts?: Product[];
+  searchResults: Product[]; 
 }
 
 // Product data for creation

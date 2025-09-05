@@ -17,7 +17,7 @@ const OnSaleProducts = () => {
     dispatch(fetchOnSaleProducts());
   }, [dispatch]);
   
-  const [showAll, setShowAll] = useState(false);
+  const [showAll] = useState(false);
   const productsToShow = showAll ? onSaleProducts : onSaleProducts.slice(0, 8);
 
   const containerVariants = {
