@@ -55,15 +55,15 @@ const PostProduct = () => {
         title: currentProduct.title,
         description: currentProduct.description,
         status: currentProduct.status,
-        price: currentProduct.price.toString(),
-        stock: currentProduct.stock.toString(),
+        price: currentProduct.price?.toString(),
+        stock: currentProduct.stock?.toString(),
         category: currentProduct.category,
         Quantity: currentProduct.Quantity,
         productImage: null,
         isFeatured: currentProduct.isFeatured,
         isNewArrival: currentProduct.isNewArrival,
         isOnSale: currentProduct.isOnSale,
-        discountPrice: currentProduct.discountPrice.toString(),
+        discountPrice: currentProduct.discountPrice?.toString(),
       });
       setImagePreview(currentProduct.productImage);
     }
