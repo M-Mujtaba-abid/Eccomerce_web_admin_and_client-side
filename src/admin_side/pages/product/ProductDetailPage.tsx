@@ -34,7 +34,7 @@ const ProductDetailPage = () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         await dispatch(deleteProduct(currentProduct.id)).unwrap();
-        navigate("/products");
+        navigate("/admin/products");
       } catch (error) {
         console.error("Failed to delete product:", error);
       }
