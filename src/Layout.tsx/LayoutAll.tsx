@@ -125,10 +125,12 @@ import OrderDirectory from "../admin_side/pages/order/OrderDirectory";
 import OrderDetails from "../admin_side/pages/order/Orderdetails";
 import Success from "../payment/Success";
 import Cancel from "../payment/Cancel";
+import { Toaster } from "react-hot-toast";
 
 const LayoutAll = () => {
   return (
     <>
+     <Toaster position="top-right" />
       <ScrollToTop />
       <Routes>
         {/* ---------------------- Admin Routes ---------------------- */}
