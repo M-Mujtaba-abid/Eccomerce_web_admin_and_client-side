@@ -123,6 +123,8 @@ import MyOrders from "../user_side/pages/cart/oder/MyOrders";
 import SearchResults from "../user_side/component/SearchResults";
 import OrderDirectory from "../admin_side/pages/order/OrderDirectory";
 import OrderDetails from "../admin_side/pages/order/Orderdetails";
+import Success from "../payment/Success";
+import Cancel from "../payment/Cancel";
 
 const LayoutAll = () => {
   return (
@@ -161,6 +163,8 @@ const LayoutAll = () => {
           <Route path="thankyou" element={<ThankYouContent />} />
           <Route path="myorders" element={<MyOrders />} />
           <Route path="search" element={<SearchResults />} />
+          <Route path="success/:id" element={<Success />} />
+          <Route path="cancel" element={<Cancel />} />
         </Route>
 
         {/* ---------------------- Auth/Public Routes ---------------------- */}

@@ -5,14 +5,17 @@ import Carousel from "../component/Carosel"
 import Navbar from "../component/Navbar"
 import Footer from "../component/Footer"
 import CartModal from "../pages/cart/CArtModel"
+import Success from "../../payment/Success"
 
 const WebSiteLayout = () => {
+  
   const location = useLocation();
   // console.log('WebSiteLayout rendering, current location:', location.pathname);
   
   return (
     <div className="min-h-screen bg-gray-100">
       {/* WebSiteLayout */}
+      <Success/>
       <Navbar/>
       
       {/* Carousel for all pages */}

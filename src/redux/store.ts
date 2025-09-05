@@ -7,6 +7,7 @@ import userReducer from "./auth/AuthSlice";
 import cartReducer from "./user/cart/CartSlice";
 import orderReducer from "./Admin/AdminSlice/OrderSlice";
 import loaderReducer from "./LoaderSlice";
+import paymentReducer from "./payment/PaymentSlice";
 
 
 
@@ -17,6 +18,7 @@ export const store = configureStore({
     cart: cartReducer,
     order: orderReducer,
     loader: loaderReducer,
+     payment: paymentReducer,
       
   },
   

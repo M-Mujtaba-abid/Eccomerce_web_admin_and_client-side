@@ -20,3 +20,23 @@ export const createCheckoutSession = createAsyncThunk(
     }
   }
 );
+
+
+// 🔹 Get Checkout Session by ID
+export const getCheckoutSession = createAsyncThunk(
+  "payment/getCheckoutSession",
+  async (sessionId: string, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.get(`/payment/sessionsuccess/${sessionId}`);
+      return response.data; // Stripe session object
+    } catch (error: any) {
+      return rejectWithValue(
+        
+        error.response?.data?.message || "Failed to fetch session"
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
