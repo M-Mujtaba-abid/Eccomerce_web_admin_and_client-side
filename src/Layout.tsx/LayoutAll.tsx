@@ -91,10 +91,11 @@
 // export default LayoutAll;
 
 
-
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ScrollToTop from "../utils/ScrollToTop";
 import ProtectedRoute from "./ProtectedRoute";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
 
 // Layouts
 import AdminLayout from "../admin_side/shared/AdminLoyout";
@@ -109,6 +110,8 @@ import Dashboard from "../admin_side/shared/Dashboard";
 import PostProduct from "../admin_side/pages/product/PostProduct";
 import ListProduct from "../admin_side/pages/product/ListProduct";
 import ProductDetailPage from "../admin_side/pages/product/ProductDetailPage";
+import OrderDirectory from "../admin_side/pages/order/OrderDirectory";
+import OrderDetails from "../admin_side/pages/order/Orderdetails";
 
 // Web/User pages
 import Home from "../user_side/pages/Home";
@@ -122,13 +125,15 @@ import AllProductsRender from "../user_side/pages/AllProductsRender";
 import ThankYouContent from "../user_side/pages/cart/ThankYouContent";
 import MyOrders from "../user_side/pages/cart/oder/MyOrders";
 import SearchResults from "../user_side/component/SearchResults";
-import OrderDirectory from "../admin_side/pages/order/OrderDirectory";
-import OrderDetails from "../admin_side/pages/order/Orderdetails";
 import Success from "../payment/Success";
 import Cancel from "../payment/Cancel";
+
 import { Toaster } from "react-hot-toast";
 
 const LayoutAll = () => {
+  const { user, token } = useSelector((state: RootState) => state.user as any);
+  const location = useLocation();
+
   return (
     <>
       <Toaster position="top-right" />
@@ -138,7 +143,6 @@ const LayoutAll = () => {
         <Route
           path="/admin"
           element={
-            // ✅ Sirf Admin role ko allow karo
             <ProtectedRoute role="Admin">
               <AdminLayout />
             </ProtectedRoute>
@@ -148,7 +152,10 @@ const LayoutAll = () => {
           <Route path="product" element={<PostProduct />} />
           <Route path="product/:productId" element={<PostProduct />} />
           <Route path="products" element={<ListProduct />} />
-          <Route path="product-detail/:productId" element={<ProductDetailPage />} />
+          <Route
+            path="product-detail/:productId"
+            element={<ProductDetailPage />}
+          />
           <Route path="orders" element={<OrderDirectory />} />
           <Route path="orders/:id" element={<OrderDetails />} />
         </Route>
@@ -160,7 +167,10 @@ const LayoutAll = () => {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path=":category" element={<Products />} />
-          <Route path="product-detail/:productId" element={<UserProductDetailPage />} />
+          <Route
+            path="product-detail/:productId"
+            element={<UserProductDetailPage />}
+          />
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<CheckOut />} />
           <Route path="all-products" element={<AllProductsRender />} />
@@ -172,15 +182,28 @@ const LayoutAll = () => {
         </Route>
 
         {/* ---------------------- Auth/Public Routes ---------------------- */}
-        {/* ✅ Ye routes hamesha accessible rehne chahiye */}
+        {/* ✅ Public pages → hamesha allow hone chahiye */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
-        {/* ---------------------- Default redirect ---------------------- */}
-        {/* ✅ "/" → /web redirect karega */}
+        {/* ---------------------- Default Redirects ---------------------- */}
         <Route path="/" element={<Navigate to="/web" replace />} />
-        {/* ✅ Agar koi galat path ho to /web redirect karega */}
-        <Route path="*" element={<Navigate to="/web" replace />} />
+
+        {/* ✅ Agar koi random path ho → check karo user hai ya nahi */}
+        <Route
+          path="*"
+          element={
+            token ? (
+              user?.userRole === "Admin" ? (
+                <Navigate to="/admin" replace />
+              ) : (
+                <Navigate to="/web" replace />
+              )
+            ) : (
+              <Navigate to="/login" replace state={{ from: location }} />
+            )
+          }
+        />
       </Routes>
     </>
   );
