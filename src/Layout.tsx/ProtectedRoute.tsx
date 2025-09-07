@@ -6,7 +6,7 @@ import { Navigate, useLocation} from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  // role?: "Admin";
+  role?: "Admin";
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
