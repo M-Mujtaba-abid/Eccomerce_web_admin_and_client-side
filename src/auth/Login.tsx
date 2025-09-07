@@ -12,11 +12,11 @@ const Login: React.FC = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userRole, setUserRole] = useState("User");
+  // const [userRole, setUserRole] = useState("User");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password, userRole }));
+    dispatch(loginUser({ email, password }));
   };
 
   // ✅ Jab user login ho jaye, role ke hisaab se redirect karo
