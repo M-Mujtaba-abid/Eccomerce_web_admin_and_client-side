@@ -224,7 +224,7 @@ const CheckOut = () => {
 
               <hr className="my-4" />
 
-              <div className="flex justify-between font-bold text-lg mb-4">
+              <div className="flex justify-between  dark:text-white font-bold text-lg mb-4">
                 <span>Total:</span>
                 <span>Rs. {calculateTotal()}</span>
               </div>
