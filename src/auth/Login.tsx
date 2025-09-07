@@ -67,7 +67,7 @@ const Login: React.FC = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium">Role</label>
           <select
             className="w-full border rounded p-2"
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
             <option value="User">User</option>
             <option value="Admin">Admin</option>
           </select>
-        </div>
+        </div> */}
 
         <button
           type="submit"
