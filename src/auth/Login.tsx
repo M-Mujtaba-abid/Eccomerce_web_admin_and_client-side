@@ -12,7 +12,7 @@ const Login: React.FC = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [userRole, setUserRole] = useState("User");
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,17 +67,7 @@ const Login: React.FC = () => {
           />
         </div>
 
-        {/* <div>
-          <label className="block text-sm font-medium">Role</label>
-          <select
-            className="w-full border rounded p-2"
-            value={userRole}
-            onChange={(e) => setUserRole(e.target.value)}
-          >
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-          </select>
-        </div> */}
+        
 
         <button
           type="submit"
