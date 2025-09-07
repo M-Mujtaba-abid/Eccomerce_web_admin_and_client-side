@@ -2,7 +2,7 @@
 
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -10,11 +10,20 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
+  // const navigate=useNavigate()
   const { user, token } = useSelector((state: RootState) => state.user as any);
   const location = useLocation();
 
+  // Login.jsx ke andar
+// if (user?.userRole === "Admin") {
+//   navigate("/admin");
+// } else {
+//   navigate("/web");
+// }
+
+
   // Only protect Admin routes
-  if (role === "Admin") {
+  if (user?.userRole === "Admin") {
     if (!token || !user || user.userRole !== "Admin") {
       return <Navigate to="/login" replace state={{ from: location }} />;
     }
