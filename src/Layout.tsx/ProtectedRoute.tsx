@@ -23,7 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
 
 
   // Only protect Admin routes
-  if (user?.userRole === "Admin") {
+  if (role === "Admin") {
     if (!token || !user || user.userRole !== "Admin") {
       return <Navigate to="/login" replace state={{ from: location }} />;
     }
