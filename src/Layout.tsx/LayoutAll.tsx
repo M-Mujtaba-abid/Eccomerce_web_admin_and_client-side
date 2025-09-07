@@ -139,6 +139,11 @@ const LayoutAll = () => {
       <Toaster position="top-right" />
       <ScrollToTop />
       <Routes>
+        {/* ---------------------- Auth/Public Routes ---------------------- */}
+        {/* ✅ Public pages → hamesha allow hone chahiye */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+
         {/* ---------------------- Admin Routes ---------------------- */}
         <Route
           path="/admin"
@@ -181,15 +186,10 @@ const LayoutAll = () => {
           <Route path="cancel" element={<Cancel />} />
         </Route>
 
-        {/* ---------------------- Auth/Public Routes ---------------------- */}
-        {/* ✅ Public pages → hamesha allow hone chahiye */}
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-
         {/* ---------------------- Default Redirects ---------------------- */}
         <Route path="/" element={<Navigate to="/web" replace />} />
 
-        {/* ✅ Agar koi random path ho → check karo user hai ya nahi */}
+        {/* ✅ Only redirect truly unknown paths, not existing routes */}
         <Route
           path="*"
           element={
