@@ -2,11 +2,11 @@
 
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation} from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  role?: "Admin";
+  // role?: "Admin";
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
