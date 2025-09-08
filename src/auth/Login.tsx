@@ -8,7 +8,7 @@ const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { loading, error, user } = useSelector((state: RootState) => state.user);
+  const { loading, error, user, token } = useSelector((state: RootState) => state.user);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,9 +19,9 @@ const Login: React.FC = () => {
     dispatch(loginUser({ email, password }));
   };
 
-  // ✅ Jab user login ho jaye, role ke hisaab se redirect karo
+  // ✅ Redirect only when authenticated (token present)
   useEffect(() => {
-    if (user) {
+    if (user && token) {
       console.log('User logged in:', user);
       console.log('User role:', user.userRole);
       
@@ -33,7 +33,7 @@ const Login: React.FC = () => {
         navigate("/web"); // user ke liye
       }
     }
-  }, [user, navigate]);
+  }, [user, token, navigate]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
