@@ -196,8 +196,8 @@ const CheckOut = () => {
               >
                 <option value="COD">Cash on Delivery</option>
                 <option value="CreditCard">Credit Card</option>
-                <option value="PayPal">PayPal</option>
-                <option value="BankTransfer">Bank Transfer</option>
+                {/* <option value="PayPal">PayPal</option> */}
+                {/* <option value="BankTransfer">Bank Transfer</option> */}
               </select>
             </div>
           </div>
