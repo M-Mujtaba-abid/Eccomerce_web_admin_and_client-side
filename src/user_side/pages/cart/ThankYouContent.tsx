@@ -6,7 +6,7 @@ import { CheckCircle } from "lucide-react";
 
 const ThankYouContent: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((state: RootState) => state.user) as any;
+  const { user } = useSelector((state: RootState) => state.user);
 
   const userName = `${user?.firstName || ""} ${user?.lastName || ""}`.trim();
 

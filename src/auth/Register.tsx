@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../redux/store";
 import { registerUser } from "../redux/auth/AuthThunk";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { loading, error, success } = useSelector(
     (state: RootState) => state.user
   );
@@ -34,7 +36,7 @@ const Register: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // FormData banana file bhejne ke liye
@@ -46,7 +48,13 @@ const Register: React.FC = () => {
       data.append("profileImage", profileImage);
     }
 
-    dispatch(registerUser(data));
+    try {
+      await dispatch(registerUser(data)).unwrap();
+      // ✅ Registration successful → redirect to login
+      navigate("/login", { replace: true, state: { from: "register" } });
+    } catch (err) {
+      // Error already handled in thunk; no-op here
+    }
   };
 
   return (

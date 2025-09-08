@@ -397,7 +397,7 @@ import SearchBar from "./SearchBar";
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cartItems } = useSelector((s: RootState) => s.cart) as any;
+  const { cartItems } = useSelector((s: RootState) => s.cart);
 
   // UI state
   const [mobileOpen, setMobileOpen] = useState(false);

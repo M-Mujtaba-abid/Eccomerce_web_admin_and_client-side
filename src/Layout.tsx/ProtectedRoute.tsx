@@ -41,7 +41,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
-  const { user, token } = useSelector((state: RootState) => state.user as any);
+  const { user, token } = useSelector((state: RootState) => state.user);
   const location = useLocation();
 
   // ✅ Sirf Admin routes ko protect karna hai

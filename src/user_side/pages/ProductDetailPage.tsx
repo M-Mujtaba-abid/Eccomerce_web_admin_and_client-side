@@ -15,7 +15,7 @@ const ProductDetailPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const { loading, error, currentProduct } = useSelector(
     (state: RootState) => state.products
-  ) as any;
+  );
 
   useEffect(() => {
     if (productId) {

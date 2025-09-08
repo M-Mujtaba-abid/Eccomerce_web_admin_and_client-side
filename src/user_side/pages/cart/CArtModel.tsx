@@ -10,7 +10,7 @@ const CartModal = () => {
   const navigate = useNavigate();
   const { showCartModal, lastAddedItem, cartItems } = useSelector(
     (state: RootState) => state.cart
-  ) as any;
+  );
 
   const handleClose = () => {
     dispatch(hideCartModal());

@@ -11,7 +11,7 @@ const NewArrivals = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { newArrivals = [], loading } = useSelector(
     (s: RootState) => s.products
-  ) as any;
+  );
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);

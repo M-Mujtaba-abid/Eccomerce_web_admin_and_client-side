@@ -18,7 +18,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const { cartItems, loading, error } = useSelector(
     (state: RootState) => state.cart
-  ) as any;
+  );
 
   useEffect(() => {
     dispatch(getUserCart());

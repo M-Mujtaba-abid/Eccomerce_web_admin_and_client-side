@@ -10,7 +10,7 @@ const OnSaleProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { onSaleProducts = [], loading } = useSelector(
     (s: RootState) => s.products
-  ) as any;
+  );
 
   
   useEffect(() => {

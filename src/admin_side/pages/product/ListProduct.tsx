@@ -13,7 +13,7 @@ const ListProduct = () => {
   const navigate = useNavigate();
   const { products, loading, error } = useSelector(
     (state: RootState) => state.products
-  ) as any;
+  );
 
   useEffect(() => {
     dispatch(fetchProducts());

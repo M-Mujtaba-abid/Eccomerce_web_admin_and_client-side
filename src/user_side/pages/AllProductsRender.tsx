@@ -18,7 +18,7 @@ const AllProductsRender = () => {
 
   const { featuredProducts, onSaleProducts, newArrivals, loading } = useSelector(
     (state: RootState) => state.products
-  ) as any;
+  );
 
   // Fetch the correct category if not already fetched
   useEffect(() => {

@@ -7,7 +7,7 @@ import { fetchMyOrders } from "../../../../redux/Admin/AdminThunk/OrderThunk";
 const MyOrders: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { orders, error, loading } = useSelector(
-    (state: RootState) => state.order as any
+    (state: RootState) => state.order
   );
 
   useEffect(() => {

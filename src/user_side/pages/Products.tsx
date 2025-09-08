@@ -11,7 +11,7 @@ const Products = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { products, loading, error } = useSelector(
     (state: RootState) => state.products
-  ) as any;
+  );
 
   const { category } = useParams<{ category: string }>();
 

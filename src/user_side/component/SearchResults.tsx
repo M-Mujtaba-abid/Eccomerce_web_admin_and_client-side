@@ -14,7 +14,7 @@ const SearchResults = () => {
   const navigate = useNavigate();
 
   const { searchResults, loading, error } = useSelector(
-    (state: RootState) => state.products as any
+    (state: RootState) => state.products
   );
 
   useEffect(() => {

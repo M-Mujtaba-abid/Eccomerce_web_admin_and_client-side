@@ -131,7 +131,7 @@ import Cancel from "../payment/Cancel";
 import { Toaster } from "react-hot-toast";
 
 const LayoutAll = () => {
-  const { user, token } = useSelector((state: RootState) => state.user as any);
+  const { user, token } = useSelector((state: RootState) => state.user);
   const location = useLocation();
 
   return (

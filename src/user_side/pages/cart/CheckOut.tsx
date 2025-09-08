@@ -11,10 +11,10 @@ const CheckOut = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const { cartItems } = useSelector((state: RootState) => state.cart) as any;
-  const { user } = useSelector((state: RootState) => state.user) as any;
+  const { cartItems } = useSelector((state: RootState) => state.cart);
+  const { user } = useSelector((state: RootState) => state.user);
   const { loading, success, error } = useSelector(
-    (state: RootState) => state.order as any
+    (state: RootState) => state.order
   );
 
   const [formData, setFormData] = useState({

@@ -17,7 +17,7 @@ const PostProduct = () => {
 
   const { loading, error, currentProduct } = useSelector(
     (state: RootState) => state.products
-  ) as any;
+  );
 
   const isEditMode = !!productId;
 

@@ -10,7 +10,7 @@ const FeaturedProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { featuredProducts = [], loading } = useSelector(
     (s: RootState) => s.products
-  ) as any;
+  );
 
   useEffect(() => {
     dispatch(fetchFeaturedProducts());
