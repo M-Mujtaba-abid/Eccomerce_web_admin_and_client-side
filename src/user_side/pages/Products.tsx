@@ -41,7 +41,7 @@ const Products = () => {
         )}
 
         {/* ✅ Product Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
           {filteredProducts.map((product: any) => (
             <Link
               key={product.id}
@@ -66,7 +66,7 @@ const Products = () => {
                 {/* 🔥 Only Title + Price */}
                 <div className="p-4 flex flex-col">
                   <h2 className="text-lg font-bold text-gray-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {product.title.slice(0,25)}
+                    {product.title.slice(0,20)}...
                   </h2>
 
                   <p className="font-semibold text-blue-600 dark:text-blue-400">

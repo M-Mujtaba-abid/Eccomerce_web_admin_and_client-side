@@ -1,7 +1,3 @@
-
-
-
-
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../apiInstance";
 import { showLoader, hideLoader } from "../LoaderSlice";
@@ -76,6 +72,47 @@ export const fetchTotalUsers = createAsyncThunk(
       return response.data.data.totalUser; // sirf number return karenge
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || "Failed to fetch total users");
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+
+// 🔹 Get User Profile
+export const getUserProfile = createAsyncThunk(
+  "user/getProfile",
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.get("/user/getuserprofile");
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch profile"
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+// 🔹 Update User Profile
+export const updateUserProfile = createAsyncThunk(
+  "user/updateProfile",
+  async (userData: FormData, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.patch("/user/profile", userData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update profile"
+      );
     } finally {
       dispatch(hideLoader());
     }

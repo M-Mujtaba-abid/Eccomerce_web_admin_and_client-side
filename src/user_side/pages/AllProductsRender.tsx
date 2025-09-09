@@ -67,7 +67,7 @@ const AllProductsRender = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.2 }}
-        className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6"
+        className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
         {productsToShow.map((p: any) => (
           <motion.div
@@ -91,7 +91,7 @@ const AllProductsRender = () => {
               />
               <div className="p-4 flex flex-col flex-grow">
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white truncate">
-                  {p.title}
+                  {p.title.slice(0,20)}...
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                   Quantity: {p.Quantity}
