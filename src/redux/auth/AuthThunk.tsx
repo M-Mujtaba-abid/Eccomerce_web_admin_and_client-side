@@ -103,10 +103,10 @@ export const updateUserProfile = createAsyncThunk(
   async (userData: FormData, { dispatch, rejectWithValue }) => {
     try {
       dispatch(showLoader());
-      const response = await API.patch("/user/profile", userData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await API.patch("/user/updateuserprofile", userData, {
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // },
       });
       return response.data;
     } catch (error: any) {

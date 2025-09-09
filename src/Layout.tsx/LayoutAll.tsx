@@ -38,6 +38,7 @@ import Cancel from "../payment/Cancel";
 
 import { Toaster } from "react-hot-toast";
 import Profile from "../admin_side/component/Profile";
+import UpdateProfile from "../admin_side/component/updateProfile";
 
 const LayoutAll = () => {
   const { user, token } = useSelector((state: RootState) => state.user);
@@ -68,11 +69,13 @@ const LayoutAll = () => {
           <Route path="products" element={<ListProduct />} />
           <Route
             path="product-detail/:productId"
-            element={<ProductDetailPage />}
+            element={<ProductDetailPage />} 
           />
           <Route path="orders" element={<OrderDirectory />} />
           <Route path="orders/:id" element={<OrderDetails />} />
-          {/* <Route path="profile" element={<Profile />} /> Add Profile to Admin */}
+          {/* Admin profile routes */}
+          <Route path="profile" element={<Profile />} />
+          <Route path="profile/update" element={<UpdateProfile />} />
         </Route>
 
         {/* ---------------------- Web/User Routes ---------------------- */}
@@ -94,7 +97,8 @@ const LayoutAll = () => {
           <Route path="search" element={<SearchResults />} />
           <Route path="success/:id" element={<Success />} />
           <Route path="cancel" element={<Cancel />} />
-          <Route path="profile" element={<Profile />} /> 
+          <Route path="profile" element={<Profile />} />
+          <Route path="profile/update" element={<UpdateProfile />} />
         </Route>
 
         {/* ---------------------- Default Redirects ---------------------- */}

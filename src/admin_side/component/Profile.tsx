@@ -1,6 +1,7 @@
 
 
 import  { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { getUserProfile } from "../../redux/auth/AuthThunk";
@@ -8,6 +9,9 @@ import { User, Mail, Phone, MapPin, Shield, Calendar, CheckCircle } from "lucide
 
 const Profile = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
   const { user,  profileError } = useSelector(
     (state: RootState) => state.user
   );
@@ -16,13 +20,6 @@ const Profile = () => {
     dispatch(getUserProfile());
   }, [dispatch]);
 
-//   if (profileLoading) {
-//     return (
-//       <div className="pt-[100px] px-6 md:px-16 lg:px-32 pb-12 min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-//         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-//       </div>
-//     );
-//   }
 
   if (profileError) {
     return (
@@ -144,6 +141,7 @@ const Profile = () => {
                       </span>
                     </div>
                   </div>
+                  {/* last name */}
                   <div>
                     <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                       Last Name
@@ -231,7 +229,10 @@ const Profile = () => {
 
             {/* Action Buttons */}
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition duration-200">
+              <button
+                onClick={() => navigate(isAdmin ? "/admin/profile/update" : "/web/profile/update")}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition duration-200"
+              >
                 Edit Profile
               </button>
               <button className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 py-3 px-4 rounded-lg font-medium transition duration-200">
