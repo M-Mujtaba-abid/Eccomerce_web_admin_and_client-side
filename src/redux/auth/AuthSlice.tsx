@@ -138,7 +138,8 @@ import {
 } from "../auth/AuthThunk";
 import { 
   getUserProfile, 
-  updateUserProfile 
+  updateUserProfile, 
+  updatePassword
 } from "./AuthThunk";
 
 interface UserState {
@@ -151,6 +152,9 @@ interface UserState {
   profileLoading: boolean;
   profileError: string | null;
   updateSuccess: boolean;
+  passwordUpdateLoading: boolean;
+  passwordUpdateError: string | null;
+  passwordUpdateSuccess: boolean;
 }
 
 const persistedToken = typeof localStorage !== 'undefined' ? localStorage.getItem("token") : null;
@@ -166,6 +170,9 @@ const initialState: UserState = {
   profileLoading: false,
   profileError: null,
   updateSuccess: false,
+  passwordUpdateLoading: false,
+  passwordUpdateError: null,
+  passwordUpdateSuccess: false,
 };
 
 const userSlice = createSlice({
@@ -189,6 +196,11 @@ const userSlice = createSlice({
     },
     clearUpdateSuccess: (state) => {
       state.updateSuccess = false;
+    },
+    clearPasswordUpdateState: (state) => {
+      state.passwordUpdateLoading = false;
+      state.passwordUpdateError = null;
+      state.passwordUpdateSuccess = false;
     },
   },
   extraReducers: (builder) => {
@@ -307,8 +319,24 @@ const userSlice = createSlice({
         state.profileError = action.payload as string;
         state.updateSuccess = false;
       });
+
+    // ✅ Update Password
+    builder
+      .addCase(updatePassword.pending, (state) => {
+        state.passwordUpdateLoading = true;
+        state.passwordUpdateError = null;
+        state.passwordUpdateSuccess = false;
+      })
+      .addCase(updatePassword.fulfilled, (state) => {
+        state.passwordUpdateLoading = false;
+        state.passwordUpdateSuccess = true;
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.passwordUpdateLoading = false;
+        state.passwordUpdateError = action.payload as string;
+      });
   },
 });
 
-export const { logout, clearProfileError, clearUpdateSuccess } = userSlice.actions;
+export const { logout, clearProfileError, clearUpdateSuccess, clearPasswordUpdateState } = userSlice.actions;
 export default userSlice.reducer;

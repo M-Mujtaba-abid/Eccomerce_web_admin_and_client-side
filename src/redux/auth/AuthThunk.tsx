@@ -118,3 +118,27 @@ export const updateUserProfile = createAsyncThunk(
     }
   }
 );
+
+
+// 🔹 Update Password
+export const updatePassword = createAsyncThunk(
+  "user/updatePassword",
+  async (
+    payload: { oldPassword: string; newPassword: string; confirmPassword: string },
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.patch("/user/updatepassword", payload);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update password"
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+

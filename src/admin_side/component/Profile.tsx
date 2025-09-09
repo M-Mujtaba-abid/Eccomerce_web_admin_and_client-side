@@ -1,7 +1,8 @@
 
 
-import  { useEffect } from "react";
+import  React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import UpdatePasswordModel from "./UpdatePasswordModel";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { getUserProfile } from "../../redux/auth/AuthThunk";
@@ -12,6 +13,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+  const [passwordModalOpen, setPasswordModalOpen] = React.useState(false);
   const { user,  profileError } = useSelector(
     (state: RootState) => state.user
   );
@@ -235,11 +237,12 @@ const Profile = () => {
               >
                 Edit Profile
               </button>
-              <button className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 py-3 px-4 rounded-lg font-medium transition duration-200">
+              <button onClick={() => setPasswordModalOpen(true)} className="w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-red-600 hover:text-white dark:hover:bg-gray-700 py-3 px-4 rounded-lg font-medium transition duration-200">
                 Change Password
               </button>
             </div>
           </div>
+          <UpdatePasswordModel open={passwordModalOpen} onClose={() => setPasswordModalOpen(false)} />
         </div>
       </div>
     </div>
