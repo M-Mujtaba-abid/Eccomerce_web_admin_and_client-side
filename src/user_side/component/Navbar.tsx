@@ -14,24 +14,24 @@
 // import { AnimatePresence, motion } from "framer-motion";
 // import ThemeToggle from "../../ThemeToggle";
 // import SearchBar from "./SearchBar";
-// // import SearchBar from "../component/SearchBar";
-
 
 // const Navbar: React.FC = () => {
 //   const navigate = useNavigate();
 //   const location = useLocation();
-
-//   const { cartItems } = useSelector((s: RootState) => s.cart) as any;
+//   const { cartItems } = useSelector((s: RootState) => s.cart);
 
 //   // UI state
 //   const [mobileOpen, setMobileOpen] = useState(false);
 //   const [insightsOpen, setInsightsOpen] = useState(false);
 //   const [moreOpen, setMoreOpen] = useState(false);
+//   const [searchOpen, setSearchOpen] = useState(false);
 
 //   // refs for outside-click
 //   const insightsRef = useRef<HTMLDivElement | null>(null);
 //   const moreRef = useRef<HTMLDivElement | null>(null);
+//   const searchRef = useRef<HTMLDivElement | null>(null);
 
+//   // close dropdowns on outside click
 //   useEffect(() => {
 //     const onDocClick = (e: MouseEvent) => {
 //       if (insightsRef.current && !insightsRef.current.contains(e.target as Node)) {
@@ -39,6 +39,9 @@
 //       }
 //       if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
 //         setMoreOpen(false);
+//       }
+//       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+//         setSearchOpen(false);
 //       }
 //     };
 //     document.addEventListener("mousedown", onDocClick);
@@ -50,6 +53,7 @@
 //     setInsightsOpen(false);
 //     setMoreOpen(false);
 //     setMobileOpen(false);
+//     setSearchOpen(false);
 //   }, [location.pathname]);
 
 //   const links = [
@@ -58,31 +62,23 @@
 //     { name: "Contact Us", path: "/web/contact" },
 //   ];
 
-  
-// const insightsLinks = [
-//   { name: "Men", path: "/web/men" },
-//   { name: "Women", path: "/web/women" },
-//   { name: "Children", path: "/web/children" },
-//   { name: "Featured", path: "/web/all-products", state: { category: "featured" } },
-//   { name: "On Sale", path: "/web/all-products", state: { category: "onSale" } },
-//   { name: "New Arrivals", path: "/web/all-products", state: { category: "newArrival" } },
-// ];
+//   const insightsLinks = [
+//     { name: "Men", path: "/web/men" },
+//     { name: "Women", path: "/web/women" },
+//     { name: "Children", path: "/web/children" },
+//     { name: "Featured", path: "/web/all-products", state: { category: "featured" } },
+//     { name: "On Sale", path: "/web/all-products", state: { category: "onSale" } },
+//     { name: "New Arrivals", path: "/web/all-products", state: { category: "newArrival" } },
+//   ];
+
 //   const isActive = (path: string) => location.pathname === path;
 
 //   const handleCartClick = () => navigate("/web/cart");
-//   // const handleSearchClick = () => navigate("/web/search");
-
-
-// const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-// const handleSearchClick = () => {
-//   setIsSearchOpen(!isSearchOpen); // sirf open/close karega
-// };
 
 //   return (
-//     <nav className="fixed  inset-x-0 top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-sm">
-//       <div className="mx-auto  max-w-7xl px-4 sm:px-6 lg:px-8">
-//         <div className="flex  h-[80px] items-center justify-between">
+//     <nav className="fixed inset-x-0 top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-sm">
+//       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+//         <div className="flex h-[80px] items-center justify-between">
 //           {/* Left — Logo */}
 //           <button
 //             onClick={() => navigate("/web")}
@@ -131,9 +127,7 @@
 //                   location.pathname.startsWith("/web/men") ||
 //                   location.pathname.startsWith("/web/women") ||
 //                   location.pathname.startsWith("/web/children") ||
-//                   location.pathname.startsWith("/web/featured") ||
-//                   location.pathname.startsWith("/web/on-sale") ||
-//                   location.pathname.startsWith("/web/new-arrivals")
+//                   location.pathname.startsWith("/web/all-products")
 //                     ? "text-blue-600 dark:text-blue-400"
 //                     : "text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
 //                 }`}
@@ -157,7 +151,7 @@
 //                         <li key={link.name}>
 //                           <Link
 //                             to={link.path}
-//                              state={link.state}
+//                             state={link.state}
 //                             className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-gray-700/60 dark:hover:text-blue-300"
 //                           >
 //                             {link.name}
@@ -173,32 +167,32 @@
 
 //           {/* Right — Desktop actions (Search, Cart, Theme, More) */}
 //           <div className="hidden md:flex items-center gap-3">
-//             {/* 1) Search */}
-//             {/* <button
-//               onClick={handleSearchClick}
-//               className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
-//               aria-label="Search"
-//             >
-//               <FiSearch className="h-5 w-5 text-gray-700 transition group-hover:text-blue-600 dark:text-gray-200 dark:group-hover:text-blue-400" />
-//             </button> */}
- 
-// <div className="relative">
-//     <button
-//       onClick={handleSearchClick}
-//       className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
-//       aria-label="Search"
-//     >
-//       <FiSearch className="h-5 w-5 text-gray-700 transition group-hover:text-blue-600 dark:text-gray-200 dark:group-hover:text-blue-400" />
-//     </button>
+//             {/* Search */}
+//             <div className="relative" ref={searchRef}>
+//               <button
+//                 onClick={() => setSearchOpen((s) => !s)}
+//                 className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
+//                 aria-label="Search"
+//               >
+//                 <FiSearch className="h-5 w-5 text-gray-700 transition group-hover:text-blue-600 dark:text-gray-200 dark:group-hover:text-blue-400" />
+//               </button>
 
-//     {/* Search Modal/Bar */}
-//     {isSearchOpen && (
-//       <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-md z-50">
-//         <SearchBar />
-//       </div>
-//     )}
-//   </div>
-//             {/* 2) Cart */}
+//               <AnimatePresence>
+//                 {searchOpen && (
+//                   <motion.div
+//                     initial={{ opacity: 0, y: 8 }}
+//                     animate={{ opacity: 1, y: 0 }}
+//                     exit={{ opacity: 0, y: 8 }}
+//                     transition={{ duration: 0.18, ease: "easeOut" }}
+//                     className="absolute right-0 mt-6 w-80 overflow-hidden rounded-xl border border-gray-200/70 bg-white shadow-lg dark:border-gray-700/70 dark:bg-gray-800"
+//                   >
+//                     <SearchBar closeSearch={() => setSearchOpen(false)} />
+//                   </motion.div>
+//                 )}
+//               </AnimatePresence>
+//             </div>
+
+//             {/* Cart */}
 //             <button
 //               onClick={handleCartClick}
 //               className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
@@ -212,10 +206,10 @@
 //               )}
 //             </button>
 
-//             {/* 3) Theme */}
+//             {/* Theme */}
 //             <ThemeToggle />
 
-//             {/* 4) More (3 dots) */}
+//             {/* More */}
 //             <div className="relative" ref={moreRef}>
 //               <button
 //                 onClick={() => setMoreOpen((s) => !s)}
@@ -251,18 +245,8 @@
 //                     >
 //                       My Orders
 //                     </Link>
-//                     {/* <Link
-//                       to="/web/settings"
-//                       className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-700/60"
-//                       role="menuitem"
-//                     >
-//                       Settings
-//                     </Link> */}
 //                     <button
-//                       onClick={() => {
-//                         // TODO: dispatch(logout())
-//                         navigate("/web/login");
-//                       }}
+//                       onClick={() => navigate("/web/login")}
 //                       className="block w-full px-4 py-2.5 text-left text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
 //                       role="menuitem"
 //                     >
@@ -274,10 +258,13 @@
 //             </div>
 //           </div>
 
-//           {/* Mobile — right side: ONLY Search, Cart, Hamburger */}
-//           <div className="flex items-center gap-2 md:hidden">
+//           {/* Mobile — Search, Cart, Hamburger */}
+//           <div className="flex items-center gap-2 md:hidden" >
 //             <button
-//               onClick={handleSearchClick}
+//               onClick={(e) => {
+//                 e.stopPropagation();
+//                 setSearchOpen((s) => !s);
+//               }}
 //               className="rounded-full p-2"
 //               aria-label="Search"
 //             >
@@ -324,38 +311,39 @@
 //           >
 //             <div className="px-4 py-3">
 //               <nav className="grid gap-1">
-//                 <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web">
-//                   Home
-//                 </Link>
-//                 <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/about">
-//                   About
-//                 </Link>
-//                 <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/men">
-//                   Men
-//                 </Link>
-//                 <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/women">
-//                   Women
-//                 </Link>
-//                 <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/children">
-//                   Children
-//                 </Link>
-//                 <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/contact">
-//                   Contact Us
-//                 </Link>
+//                 {links.map((l) => (
+//                   <Link
+//                     key={l.name}
+//                     to={l.path}
+//                     className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
+//                   >
+//                     {l.name}
+//                   </Link>
+//                 ))}
+//                 {insightsLinks.map((l) => (
+//                   <Link
+//                     key={l.name}
+//                     to={l.path}
+//                     state={l.state}
+//                     className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
+//                   >
+//                     {l.name}
+//                   </Link>
+//                 ))}
 
-//                 {/* Theme inline on mobile */}
+//                 {/* Theme toggle */}
 //                 <div className="px-1 py-2">
 //                   <ThemeToggle />
 //                 </div>
 
-//                 <Link className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800" to="/web/profile">
+//                 <Link
+//                   to="/web/profile"
+//                   className="rounded px-3 py-2 text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
+//                 >
 //                   Profile
 //                 </Link>
 //                 <button
-//                   onClick={() => {
-//                     // TODO: dispatch(logout())
-//                     navigate("/web/login");
-//                   }}
+//                   onClick={() => navigate("/web/login")}
 //                   className="rounded px-3 py-2 text-left text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
 //                 >
 //                   Logout
@@ -365,14 +353,27 @@
 //           </motion.div>
 //         )}
 //       </AnimatePresence>
+
+//       {/* Mobile Search Dropdown */}
+//       <AnimatePresence>
+//         {searchOpen && (
+//           <motion.div
+//             initial={{ opacity: 0, y: -10 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             exit={{ opacity: 0, y: -10 }}
+//             transition={{ duration: 0.2 }}
+//             className="md:hidden absolute top-[80px] inset-x-0 bg-white dark:bg-gray-900 shadow-md z-50"
+//             ref={searchRef}
+//           >
+//             <SearchBar closeSearch={() => setSearchOpen(false)} />
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
 //     </nav>
 //   );
 // };
 
 // export default Navbar;
-
-
-
 
 
 
@@ -411,21 +412,31 @@ const Navbar: React.FC = () => {
   const searchRef = useRef<HTMLDivElement | null>(null);
 
   // close dropdowns on outside click
-  useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      if (insightsRef.current && !insightsRef.current.contains(e.target as Node)) {
-        setInsightsOpen(false);
-      }
-      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
-        setMoreOpen(false);
-      }
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setSearchOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDocClick);
-    return () => document.removeEventListener("mousedown", onDocClick);
-  }, []);
+// Update the useEffect for outside click detection
+useEffect(() => {
+  const onDocClick = (e: MouseEvent) => {
+    // Only close if the click is outside all dropdown containers
+    if (insightsRef.current && !insightsRef.current.contains(e.target as Node)) {
+      setInsightsOpen(false);
+    }
+    if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+      setMoreOpen(false);
+    }
+    if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+      setSearchOpen(false);
+    }
+  };
+  
+  // Use a timeout to avoid immediate closing when opening the dropdown
+  const timer = setTimeout(() => {
+    document.addEventListener("click", onDocClick);
+  }, 100);
+  
+  return () => {
+    clearTimeout(timer);
+    document.removeEventListener("click", onDocClick);
+  };
+}, []);
 
   // close popovers on route change
   useEffect(() => {
@@ -544,33 +555,37 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Right — Desktop actions (Search, Cart, Theme, More) */}
+          {/* Right — Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
             {/* Search */}
-            <div className="relative" ref={searchRef}>
-              <button
-                onClick={() => setSearchOpen((s) => !s)}
-                className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
-                aria-label="Search"
-              >
-                <FiSearch className="h-5 w-5 text-gray-700 transition group-hover:text-blue-600 dark:text-gray-200 dark:group-hover:text-blue-400" />
-              </button>
+            {/* Update the search section in the desktop navigation */}
+<div className="relative" ref={searchRef}>
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      setSearchOpen((s) => !s);
+    }}
+    className="group relative rounded-full p-2 ring-1 ring-transparent hover:ring-blue-200 dark:hover:ring-blue-800"
+    aria-label="Search"
+  >
+    <FiSearch className="h-5 w-5 text-gray-700 transition group-hover:text-blue-600 dark:text-gray-200 dark:group-hover:text-blue-400" />
+  </button>
 
-              <AnimatePresence>
-                {searchOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute right-0 mt-6 w-80 overflow-hidden rounded-xl border border-gray-200/70 bg-white shadow-lg dark:border-gray-700/70 dark:bg-gray-800"
-                  >
-                    <SearchBar closeSearch={() => setSearchOpen(false)} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
+  <AnimatePresence>
+    {searchOpen && (
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 8 }}
+        transition={{ duration: 0.18, ease: "easeOut" }}
+        className="absolute right-0 mt-6 w-80 overflow-hidden rounded-xl border border-gray-200/70 bg-white shadow-lg dark:border-gray-700/70 dark:bg-gray-800"
+        onClick={(e) => e.stopPropagation()} // Add this line
+      >
+        <SearchBar closeSearch={() => setSearchOpen(false)} />
+      </motion.div>
+    )}
+  </AnimatePresence>
+</div>
             {/* Cart */}
             <button
               onClick={handleCartClick}
@@ -637,10 +652,13 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile — Search, Cart, Hamburger */}
-          <div className="flex items-center gap-2 md:hidden" >
+          {/* Mobile actions */}
+          <div className="flex items-center gap-2 md:hidden">
             <button
-              onClick={() => setSearchOpen((s) => !s)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSearchOpen((s) => !s);
+              }}
               className="rounded-full p-2"
               aria-label="Search"
             >
@@ -707,7 +725,6 @@ const Navbar: React.FC = () => {
                   </Link>
                 ))}
 
-                {/* Theme toggle */}
                 <div className="px-1 py-2">
                   <ThemeToggle />
                 </div>
@@ -739,6 +756,7 @@ const Navbar: React.FC = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
             className="md:hidden absolute top-[80px] inset-x-0 bg-white dark:bg-gray-900 shadow-md z-50"
+            ref={searchRef}
           >
             <SearchBar closeSearch={() => setSearchOpen(false)} />
           </motion.div>
