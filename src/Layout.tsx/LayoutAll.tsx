@@ -38,7 +38,7 @@ import Cancel from "../payment/Cancel";
 
 import { Toaster } from "react-hot-toast";
 import Profile from "../admin_side/component/Profile";
-import UpdateProfile from "../admin_side/component/updateProfile";
+import UpdateProfile from "../admin_side/component/UpdateProfile";
 
 const LayoutAll = () => {
   const { user, token } = useSelector((state: RootState) => state.user);
