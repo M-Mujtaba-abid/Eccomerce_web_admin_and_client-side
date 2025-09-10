@@ -354,7 +354,7 @@ const Register: React.FC = () => {
           onChange={handleChange}
         >
           <option value="User">User</option>
-          <option value="Admin">Admin</option>
+          {/* <option value="Admin">Admin</option> */}
         </select>
         <input
           type="file"
