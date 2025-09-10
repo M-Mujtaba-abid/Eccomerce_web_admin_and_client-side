@@ -44,10 +44,10 @@ export const updateCartItem = createAsyncThunk(
   "cart/updateCartItem",
   async (
     { id, quantity }: { id: number; quantity: number },
-    { dispatch, rejectWithValue }
+    {  rejectWithValue }
   ) => {
     try {
-      dispatch(showLoader());
+      // dispatch(showLoader());
       const response = await API.patch(`/cartitem/updatecart/${id}`, {
         quantity,
       });
@@ -55,7 +55,7 @@ export const updateCartItem = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || "Failed to update cart item");
     } finally {
-      dispatch(hideLoader());
+      // dispatch(hideLoader());
     }
   }
 );

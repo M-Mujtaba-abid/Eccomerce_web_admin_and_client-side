@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const MyOrders: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { orders, error, loading } = useSelector(
+  const { orders, error} = useSelector(
     (state: RootState) => state.order
   );
   const { token } = useSelector((state: RootState) => state.user);
@@ -37,13 +37,13 @@ const MyOrders: React.FC = () => {
     );
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <p className="text-gray-700 dark:text-gray-300">Loading orders...</p>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+  //       <p className="text-gray-700 dark:text-gray-300">Loading orders...</p>
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return (

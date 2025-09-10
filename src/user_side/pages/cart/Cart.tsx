@@ -9,14 +9,14 @@ import {
   removeCartItem,
   clearCart,
 } from "../../../redux/user/cart/CartThunk";
-import { clearError } from "../../../redux/user/cart/CartSlice";
+import { clearError, updateItemQuantityLocally } from "../../../redux/user/cart/CartSlice";
 import type { RootState, AppDispatch } from "../../../redux/store";
 import { Trash2, Plus, Minus, ShoppingBag } from "lucide-react";
 
 const Cart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { cartItems, loading, error } = useSelector(
+  const { cartItems,  error } = useSelector(
     (state: RootState) => state.cart
   );
 
@@ -27,15 +27,32 @@ const Cart = () => {
     };
   }, [dispatch]);
 
+
+  
+  //   if (newQuantity < 1) return;
+  //   try {
+  //     await dispatch(updateCartItem({ id: itemId, quantity: newQuantity })).unwrap();
+  //   } catch (err) {
+  //     console.error("Failed to update quantity:", err);
+  //   }
+  // };
   const handleQuantityChange = async (itemId: number, newQuantity: number) => {
     if (newQuantity < 1) return;
+  
+    // 1. Optimistic update
+    dispatch(updateItemQuantityLocally({ id: itemId, quantity: newQuantity }));
+  
     try {
+      // 2. Backend update
       await dispatch(updateCartItem({ id: itemId, quantity: newQuantity })).unwrap();
     } catch (err) {
       console.error("Failed to update quantity:", err);
+  
+      // 3. Rollback (refetch if failed)
+      dispatch(getUserCart());
     }
   };
-
+  
   const handleRemoveItem = async (itemId: number) => {
     try {
       await dispatch(removeCartItem(itemId)).unwrap();
@@ -57,15 +74,6 @@ const Cart = () => {
   const calculateTotal = () =>
     cartItems.reduce((total: number, item: any) => total + item.totalPrice, 0);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">
-          Loading cart...
-        </div>
-      </div>
-    );
-  }
 
   if (cartItems.length === 0) {
     return (
