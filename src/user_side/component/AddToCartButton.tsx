@@ -8,7 +8,7 @@ import { addToCart } from "../../redux/user/cart/CartThunk";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { toast } from "react-hot-toast"; // toast library
 
-interface AddToCartButtonProps {
+type AddToCartButtonProps = {
   productId: number;
   quantity?: number;
   onClick?: () => void;

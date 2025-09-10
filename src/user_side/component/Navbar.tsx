@@ -381,8 +381,8 @@
 // src/components/layout/Navbar.tsx
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../redux/store";
 import {
   FiMenu,
   FiX,
@@ -394,11 +394,14 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import ThemeToggle from "../../ThemeToggle";
 import SearchBar from "./SearchBar";
+import { logoutUser } from "../../redux/auth/AuthThunk";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const { cartItems } = useSelector((s: RootState) => s.cart);
+  const { token } = useSelector((s: RootState) => s.user);
 
   // UI state
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -464,6 +467,19 @@ useEffect(() => {
   const isActive = (path: string) => location.pathname === path;
 
   const handleCartClick = () => navigate("/web/cart");
+
+  const handleAuthClick = async () => {
+    if (token) {
+      try {
+        await dispatch(logoutUser()).unwrap();
+      } catch (_) {}
+      navigate("/login");
+    } else {
+      navigate("/login");
+    }
+    setMoreOpen(false);
+    setMobileOpen(false);
+  };
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-sm">
@@ -640,11 +656,11 @@ useEffect(() => {
                       My Orders
                     </Link>
                     <button
-                      onClick={() => navigate("/web/login")}
+                      onClick={handleAuthClick}
                       className="block w-full px-4 py-2.5 text-left text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
                       role="menuitem"
                     >
-                      Logout
+                      {token ? "Logout" : "Login"}
                     </button>
                   </motion.div>
                 )}
@@ -736,10 +752,10 @@ useEffect(() => {
                   Profile
                 </Link>
                 <button
-                  onClick={() => navigate("/web/login")}
+                  onClick={handleAuthClick}
                   className="rounded px-3 py-2 text-left text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
                 >
-                  Logout
+                  {token ? "Logout" : "Login"}
                 </button>
               </nav>
             </div>

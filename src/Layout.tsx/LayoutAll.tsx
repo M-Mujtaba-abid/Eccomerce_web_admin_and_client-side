@@ -38,6 +38,9 @@ import Cancel from "../payment/Cancel";
 
 import { Toaster } from "react-hot-toast";
 import Profile from "../admin_side/component/Profile";
+import ForgetPassword from "../auth/ForgetPassword";
+import VerifyOtp from "../auth/VarifyOtp";
+import SetNewPassword from "../auth/SetNewPassword";
 import UpdateProfile from "../admin_side/component/UpdateProfile";
 
 const LayoutAll = () => {
@@ -53,6 +56,9 @@ const LayoutAll = () => {
         {/* ✅ Public pages → hamesha allow hone chahiye */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgetPassword />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
+        <Route path="/set-new-password" element={<SetNewPassword />} />
 
         {/* ---------------------- Admin Routes ---------------------- */}
         <Route

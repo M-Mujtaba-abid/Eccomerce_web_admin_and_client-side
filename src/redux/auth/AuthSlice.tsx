@@ -139,7 +139,10 @@ import {
 import { 
   getUserProfile, 
   updateUserProfile, 
-  updatePassword
+  updatePassword,
+  forgotPassword,
+  verifyOtp,
+  resetPassword
 } from "./AuthThunk";
 
 interface UserState {
@@ -155,6 +158,16 @@ interface UserState {
   passwordUpdateLoading: boolean;
   passwordUpdateError: string | null;
   passwordUpdateSuccess: boolean;
+  // forgot/reset flow
+  forgotLoading: boolean;
+  forgotError: string | null;
+  forgotSuccess: boolean;
+  verifyLoading: boolean;
+  verifyError: string | null;
+  verifySuccess: boolean;
+  resetLoading: boolean;
+  resetError: string | null;
+  resetSuccess: boolean;
 }
 
 const persistedToken = typeof localStorage !== 'undefined' ? localStorage.getItem("token") : null;
@@ -173,6 +186,15 @@ const initialState: UserState = {
   passwordUpdateLoading: false,
   passwordUpdateError: null,
   passwordUpdateSuccess: false,
+  forgotLoading: false,
+  forgotError: null,
+  forgotSuccess: false,
+  verifyLoading: false,
+  verifyError: null,
+  verifySuccess: false,
+  resetLoading: false,
+  resetError: null,
+  resetSuccess: false,
 };
 
 const userSlice = createSlice({
@@ -201,6 +223,17 @@ const userSlice = createSlice({
       state.passwordUpdateLoading = false;
       state.passwordUpdateError = null;
       state.passwordUpdateSuccess = false;
+    },
+    clearForgotFlow: (state) => {
+      state.forgotLoading = false;
+      state.forgotError = null;
+      state.forgotSuccess = false;
+      state.verifyLoading = false;
+      state.verifyError = null;
+      state.verifySuccess = false;
+      state.resetLoading = false;
+      state.resetError = null;
+      state.resetSuccess = false;
     },
   },
   extraReducers: (builder) => {
@@ -335,8 +368,56 @@ const userSlice = createSlice({
         state.passwordUpdateLoading = false;
         state.passwordUpdateError = action.payload as string;
       });
+
+    // ✅ Forgot Password
+    builder
+      .addCase(forgotPassword.pending, (state) => {
+        state.forgotLoading = true;
+        state.forgotError = null;
+        state.forgotSuccess = false;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.forgotLoading = false;
+        state.forgotSuccess = true;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.forgotLoading = false;
+        state.forgotError = action.payload as string;
+      });
+
+    // ✅ Verify OTP
+    builder
+      .addCase(verifyOtp.pending, (state) => {
+        state.verifyLoading = true;
+        state.verifyError = null;
+        state.verifySuccess = false;
+      })
+      .addCase(verifyOtp.fulfilled, (state) => {
+        state.verifyLoading = false;
+        state.verifySuccess = true;
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.verifyLoading = false;
+        state.verifyError = action.payload as string;
+      });
+
+    // ✅ Reset Password
+    builder
+      .addCase(resetPassword.pending, (state) => {
+        state.resetLoading = true;
+        state.resetError = null;
+        state.resetSuccess = false;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.resetLoading = false;
+        state.resetSuccess = true;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.resetLoading = false;
+        state.resetError = action.payload as string;
+      });
   },
 });
 
-export const { logout, clearProfileError, clearUpdateSuccess, clearPasswordUpdateState } = userSlice.actions;
+export const { logout, clearProfileError, clearUpdateSuccess, clearPasswordUpdateState, clearForgotFlow } = userSlice.actions;
 export default userSlice.reducer;

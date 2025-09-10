@@ -14,13 +14,33 @@ const Profile = () => {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
   const [passwordModalOpen, setPasswordModalOpen] = React.useState(false);
-  const { user,  profileError } = useSelector(
+  const { user,  profileError, token } = useSelector(
     (state: RootState) => state.user
   );
 
   useEffect(() => {
-    dispatch(getUserProfile());
-  }, [dispatch]);
+    if (token) {
+      dispatch(getUserProfile());
+    }
+  }, [dispatch, token]);
+
+  if (!token) {
+    return (
+      <div className="pt-[100px] px-6 md:px-16 lg:px-32 pb-12 min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow text-center">
+          <p className="text-gray-800 dark:text-gray-100 mb-4 font-medium">
+            Please login first to see your profile.
+          </p>
+          <button
+            onClick={() => navigate("/login")}
+            className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
 
   if (profileError) {

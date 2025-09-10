@@ -1,88 +1,125 @@
+
+
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../redux/store";
 import { loginUser } from "../redux/auth/AuthThunk";
 import { Link, useNavigate } from "react-router-dom";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { loading, error, user, token } = useSelector((state: RootState) => state.user);
+  const { loading, error, user, token } = useSelector(
+    (state: RootState) => state.user
+  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [showPassword, setShowPassword] = useState(false); // toggle password
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
 
-  // ✅ Redirect only when authenticated (token present)
   useEffect(() => {
     if (user && token) {
-      console.log('User logged in:', user);
-      console.log('User role:', user.userRole);
-      
       if (user.userRole === "Admin") {
-        console.log('Redirecting to /admin');
-        navigate("/admin"); // admin ke liye
+        navigate("/admin");
       } else {
-        console.log('Redirecting to /web');
-        navigate("/web"); // user ke liye
+        navigate("/web");
       }
     }
   }, [user, token, navigate]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div
+      className="flex justify-center items-center min-h-screen bg-gray-100 px-4"
+      style={{
+        backgroundImage: "url('/login2.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md w-96 space-y-4"
+        className="bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-lg w-full max-w-md space-y-6"
       >
-        <h2 className="text-2xl font-bold text-center">Login</h2>
+        {/* Heading */}
+        <h2 className="text-3xl font-extrabold text-center text-gray-800">
+          Login
+        </h2>
 
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {/* Error message */}
+        {error && <p className="text-red-500 text-center font-medium">{error}</p>}
 
-        <div>
-          <label className="block text-sm font-medium">Email</label>
+        {/* Email */}
+        <div className="flex flex-col">
+          <label className="text-sm font-semibold text-gray-700 mb-2">
+            Email
+          </label>
           <input
             type="email"
-            className="w-full border rounded p-2"
+            placeholder="Enter your email"
+            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium">Password</label>
+        {/* Password with show/hide */}
+        <div className="flex flex-col relative">
+          <label className="text-sm font-semibold text-gray-700 mb-2">
+            Password
+          </label>
           <input
-            type="password"
-            className="w-full border rounded p-2"
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter your password"
+            className="w-full border border-gray-300 rounded-xl p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute top-[53px] right-3 -translate-y-1/2 text-gray-500"
+          >
+            {showPassword ? (
+              <EyeSlashIcon className="h-5 w-5" />
+            ) : (
+              <EyeIcon className="h-5 w-5" />
+            )}
+          </button>
         </div>
 
-        
-
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white p-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-md"
         >
           {loading ? "Logging in..." : "Login"}
         </button>
 
-        <p className="text-sm text-center text-gray-600">
-          Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-600 hover:underline">
-            Sign up
-          </Link>
-        </p>
+        {/* Links */}
+        <div className="flex justify-between text-sm text-gray-600">
+          <p>
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-blue-600 font-medium hover:underline">
+              Sign up
+            </Link>
+          </p>
+          <p>
+            <Link to="/forgot-password" className="text-blue-600 font-medium hover:underline">
+              Forgot Password?
+            </Link>
+          </p>
+        </div>
       </form>
     </div>
   );

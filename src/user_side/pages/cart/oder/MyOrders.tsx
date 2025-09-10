@@ -3,16 +3,39 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../../../redux/store";
 import { fetchMyOrders } from "../../../../redux/Admin/AdminThunk/OrderThunk";
+import { useNavigate } from "react-router-dom";
 
 const MyOrders: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { orders, error, loading } = useSelector(
     (state: RootState) => state.order
   );
+  const { token } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    dispatch(fetchMyOrders());
-  }, [dispatch]);
+    if (token) {
+      dispatch(fetchMyOrders());
+    }
+  }, [dispatch, token]);
+
+  if (!token) {
+    return (
+      <div className="min-h-screen pt-[80px] flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow text-center">
+          <p className="text-gray-800 dark:text-gray-100 mb-4 font-medium">
+            Please login first to see your orders.
+          </p>
+          <button
+            onClick={() => navigate("/login")}
+            className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (

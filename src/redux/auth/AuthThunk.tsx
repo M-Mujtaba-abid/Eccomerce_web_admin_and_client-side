@@ -141,4 +141,61 @@ export const updatePassword = createAsyncThunk(
   }
 );
 
+// 🔹 Forgot Password - send OTP
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (payload: { email: string }, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.post("/user/forgetpassword", payload);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to send OTP"
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+// 🔹 Verify OTP
+export const verifyOtp = createAsyncThunk(
+  "auth/verifyOtp",
+  async (payload: { email: string; otp: string }, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.post("/user/verifyotp", payload);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to verify OTP"
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+// 🔹 Reset Password
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (
+    payload: { email: string; newPassword: string; confirmPassword: string },
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      dispatch(showLoader());
+      const response = await API.post("/user/resetpassword", payload);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to reset password"
+      );
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
 
