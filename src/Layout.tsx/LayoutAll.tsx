@@ -101,7 +101,7 @@ const LayoutAll = () => {
           <Route path="thankyou" element={<ThankYouContent />} />
           <Route path="myorders" element={<MyOrders />} />
           <Route path="search" element={<SearchResults />} />
-          <Route path="success/:id" element={<Success />} />
+          <Route path="success" element={<Success />} />
           <Route path="cancel" element={<Cancel />} />
           <Route path="profile" element={<Profile />} />
           <Route path="profile/update" element={<UpdateProfile />} />

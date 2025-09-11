@@ -60,29 +60,45 @@ const CheckOut = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (formData.paymentMethod === "COD") {
-      // 🔹 Normal order flow
-      dispatch(createOrder(formData));
+      // 🔹 Normal COD order flow
+      dispatch(createOrder({ ...formData, cartItems }));
     } else if (formData.paymentMethod === "CreditCard") {
       // 🔹 Stripe Payment Flow
       const resultAction = await dispatch(
-        createCheckoutSession(
-          cartItems.map((item: any) => ({
+        createCheckoutSession({
+          items: cartItems.map((item: any) => ({
             name: item.Product?.title,
             price: item.totalPrice / item.quantity,
             quantity: item.quantity,
-          }))
-        )
+          })),
+          userId: user.id,
+          customerName: formData.customerName,
+          customerEmail: formData.customerEmail,
+          customerPhone: formData.customerPhone,
+          shippingStreet: formData.shippingStreet,
+          shippingCity: formData.shippingCity,
+          shippingState: formData.shippingState,
+          shippingPostalCode: formData.shippingPostalCode,
+          shippingCountry: formData.shippingCountry,
+          totalAmount: cartItems.reduce(
+            (sum: number, item: any) => sum + item.totalPrice,
+            0
+          ),
+        })
       );
-
+      
+  
       if (createCheckoutSession.fulfilled.match(resultAction)) {
-        window.location.href = resultAction.payload.url; // redirect to Stripe
+        window.location.href = resultAction.payload.url; // ✅ Stripe checkout page
       }
     } else {
       alert("Other payment methods not yet implemented.");
     }
   };
+  
+
 
   if (cartItems.length === 0) return null;
 

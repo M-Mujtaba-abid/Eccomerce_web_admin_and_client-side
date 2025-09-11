@@ -5,7 +5,7 @@ import Carousel from "../component/Carosel"
 import Navbar from "../component/Navbar"
 import Footer from "../component/Footer"
 import CartModal from "../pages/cart/CArtModel"
-import Success from "../../payment/Success"
+// import Success from "../../payment/Success"
 
 const WebSiteLayout = () => {
   
@@ -15,7 +15,7 @@ const WebSiteLayout = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* WebSiteLayout */}
-      <Success/>
+      {/* <Success/> */}
       <Navbar/>
       
       {/* Carousel for all pages */}
