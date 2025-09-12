@@ -64,17 +64,3 @@ export const getCheckoutSession = createAsyncThunk(
     }
   }
 );
-
-// ----------------------- CANCEL / FAILED SESSION -----------------------
-// redux/payment/PaymentThunk.ts
-export const cancelCheckoutSession = createAsyncThunk(
-  "payment/cancelCheckoutSession",
-  async (sessionId: string, { rejectWithValue }) => {
-    try {
-      const response = await API.post(`/payment/cancel`, { sessionId });
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || "Cancel failed");
-    }
-  }
-);
